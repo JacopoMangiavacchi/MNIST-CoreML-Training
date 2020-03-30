@@ -18,7 +18,7 @@ public struct MNISTData {
     public let xTest: [[Float]]
     public let yTest: [[Int]]
     
-    static func processFile(path: URL) -> (numRecords: Int, train: [[Float]], label: [[Int]]) {
+    static func processFile(path: URL) -> (numRecords: Int, image: [[Float]], label: [[Int]]) {
         func oneHotEncode(_ n: Int) -> [Int] {
             var encode = Array(repeating: 0, count: 10)
             encode[n] = 1
@@ -29,11 +29,17 @@ public struct MNISTData {
         let data = try! String(contentsOf: path, encoding: String.Encoding.utf8)
 
         // Convert Space Separated CSV with no Header
-        let dataRecords: [([Float], [Int])] = data.split(separator: "\r\n")
-                                                .map{ String($0).split(separator: ",").map{ Int(String($0))! } }
-                                                .map{ (Array($0[1...].map{ Float($0) / Float(255.0) }), oneHotEncode($0[0])) }
+        var image = [[Float]]()
+        var label = [[Int]]()
         
-        return (dataRecords.count, [[Float]](), [[Int]]())
+        data.split(separator: "\r\n")
+            .map{ String($0).split(separator: ",").map{ Int(String($0))! } }
+            .forEach{ (intList: [Int]) in
+                image.append(Array(intList[1...].map{ Float($0) / Float(255.0) }))
+                label.append(oneHotEncode(intList[0]))
+            }
+        
+        return (image.count, image, label)
     }
 
     public init() {
