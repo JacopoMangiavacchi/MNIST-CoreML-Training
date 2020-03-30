@@ -13,12 +13,21 @@
 		EACC9DFE24318F770067E304 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EACC9DFD24318F770067E304 /* Assets.xcassets */; };
 		EACC9E0124318F770067E304 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EACC9E0024318F770067E304 /* Preview Assets.xcassets */; };
 		EACC9E0424318F770067E304 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EACC9E0224318F770067E304 /* LaunchScreen.storyboard */; };
-		EACC9E0E24318FAC0067E304 /* mnist_train.csv in Resources */ = {isa = PBXBuildFile; fileRef = EACC9E0C24318FAC0067E304 /* mnist_train.csv */; };
-		EACC9E0F24318FAC0067E304 /* mnist_test.csv in Resources */ = {isa = PBXBuildFile; fileRef = EACC9E0D24318FAC0067E304 /* mnist_test.csv */; };
 		EACC9E142431906A0067E304 /* MNISTData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACC9E122431906A0067E304 /* MNISTData.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		EA0B38B4243280D70047E786 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EA0B38B0243280D60047E786 /* PrepareData.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EA0B38A6243280D60047E786;
+			remoteInfo = PrepareData;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		EA0B38B0243280D60047E786 /* PrepareData.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PrepareData.xcodeproj; path = PrepareData/PrepareData.xcodeproj; sourceTree = SOURCE_ROOT; };
 		EACC9DF424318F740067E304 /* MNIST-CoreML-Training.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MNIST-CoreML-Training.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EACC9DF724318F740067E304 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EACC9DF924318F740067E304 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -27,8 +36,6 @@
 		EACC9E0024318F770067E304 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		EACC9E0324318F770067E304 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EACC9E0524318F770067E304 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EACC9E0C24318FAC0067E304 /* mnist_train.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mnist_train.csv; sourceTree = "<group>"; };
-		EACC9E0D24318FAC0067E304 /* mnist_test.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mnist_test.csv; sourceTree = "<group>"; };
 		EACC9E1024318FC10067E304 /* MNIST-CoreML-Training.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "MNIST-CoreML-Training.entitlements"; sourceTree = "<group>"; };
 		EACC9E122431906A0067E304 /* MNISTData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MNISTData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -44,10 +51,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EA0B38B1243280D60047E786 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EA0B38B5243280D70047E786 /* PrepareData */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		EACC9DEB24318F740067E304 = {
 			isa = PBXGroup;
 			children = (
-				EACC9E0B24318F840067E304 /* Data */,
 				EACC9DF624318F740067E304 /* MNIST-CoreML-Training */,
 				EACC9DF524318F740067E304 /* Products */,
 			);
@@ -64,6 +78,7 @@
 		EACC9DF624318F740067E304 /* MNIST-CoreML-Training */ = {
 			isa = PBXGroup;
 			children = (
+				EA0B38B0243280D60047E786 /* PrepareData.xcodeproj */,
 				EACC9E122431906A0067E304 /* MNISTData.swift */,
 				EACC9DFB24318F740067E304 /* ContentView.swift */,
 				EACC9E1024318FC10067E304 /* MNIST-CoreML-Training.entitlements */,
@@ -83,15 +98,6 @@
 				EACC9E0024318F770067E304 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		EACC9E0B24318F840067E304 /* Data */ = {
-			isa = PBXGroup;
-			children = (
-				EACC9E0D24318FAC0067E304 /* mnist_test.csv */,
-				EACC9E0C24318FAC0067E304 /* mnist_train.csv */,
-			);
-			path = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -144,6 +150,12 @@
 			);
 			productRefGroup = EACC9DF524318F740067E304 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = EA0B38B1243280D60047E786 /* Products */;
+					ProjectRef = EA0B38B0243280D60047E786 /* PrepareData.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				EACC9DF324318F740067E304 /* MNIST-CoreML-Training */,
@@ -151,16 +163,24 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXReferenceProxy section */
+		EA0B38B5243280D70047E786 /* PrepareData */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = PrepareData;
+			remoteRef = EA0B38B4243280D70047E786 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
 /* Begin PBXResourcesBuildPhase section */
 		EACC9DF224318F740067E304 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				EACC9E0424318F770067E304 /* LaunchScreen.storyboard in Resources */,
-				EACC9E0E24318FAC0067E304 /* mnist_train.csv in Resources */,
 				EACC9E0124318F770067E304 /* Preview Assets.xcassets in Resources */,
 				EACC9DFE24318F770067E304 /* Assets.xcassets in Resources */,
-				EACC9E0F24318FAC0067E304 /* mnist_test.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
