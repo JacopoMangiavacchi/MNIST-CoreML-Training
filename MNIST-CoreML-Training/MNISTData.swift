@@ -25,20 +25,34 @@ public struct MNISTData {
             return encode
         }
         
-        // Load Data
-        let data = try! String(contentsOf: path, encoding: String.Encoding.utf8)
-
-        // Convert Space Separated CSV with no Header
         var image = [[Float]]()
         var label = [[Int]]()
-        
-        data.split(separator: "\r\n")
-            .map{ String($0).split(separator: ",").map{ Int(String($0))! } }
-            .forEach{ (intList: [Int]) in
-                image.append(Array(intList[1...].map{ Float($0) / Float(255.0) }))
-                label.append(oneHotEncode(intList[0]))
-            }
-        
+
+        errno = 0
+        if freopen(path.path, "r", stdin) == nil {
+            print("error opening file")
+        }
+        while let line = readLine()?.split(separator: ",") {
+            label.append(oneHotEncode(Int(String(line[0]))!))
+            image.append(Array(line[1...].map{ Float(String($0))! / Float(255.0) }))
+        }
+
+//
+//
+//        // Load Data
+//        let data = try! String(contentsOf: path, encoding: String.Encoding.utf8)
+//
+//        // Convert Space Separated CSV with no Header
+//        var image = [[Float]]()
+//        var label = [[Int]]()
+//
+//        data.split(separator: "\r\n")
+//            .map{ String($0).split(separator: ",").map{ Int(String($0))! } }
+//            .forEach{ (intList: [Int]) in
+//                image.append(Array(intList[1...].map{ Float($0) / Float(255.0) }))
+//                label.append(oneHotEncode(intList[0]))
+//            }
+//
         return (image.count, image, label)
     }
 
