@@ -139,35 +139,93 @@ public class MNIST : ObservableObject {
                              outputShape: [],
                              deconvolution: false,
                              updatable: true)
-//                ReLu(name: "relu1",
-//                     input: ["outConvolution1"],
-//                     output: ["outRelu1"])
-//                Pooling(name: "pooling1",
-//                             input: ["outRelu1"],
-//                             output: ["outPooling1"],
-//                             mode: .last)
-//                Flatten(name: "flatten1",
-//                             input: ["outPooling1"],
-//                             output: ["outFlatten1"],
-//                             mode: .last)
-//                InnerProduct(name: "dense1",
-//                             input: ["outFlatten1"],
-//                             output: ["outDense1"],
-//                             inputChannels: 288,
-//                             outputChannels: 500,
-//                             updatable: true)
-//                ReLu(name: "relu2",
-//                     input: ["outDense1"],
-//                     output: ["outRelu2"])
-//                InnerProduct(name: "dense2",
-//                             input: ["outRelu2"],
-//                             output: ["outDense2"],
-//                             inputChannels: 500,
-//                             outputChannels: 10,
-//                             updatable: true)
-//                Softsign(name: "softsign",
-//                     input: ["outDense2"],
-//                     output: ["output"])
+                ReLu(name: "relu1",
+                     input: ["outConvolution1"],
+                     output: ["outRelu1"])
+                Pooling(name: "pooling1",
+                             input: ["outRelu1"],
+                             output: ["outPooling1"],
+                             poolingType: .max,
+                             kernelSize: [2, 2],
+                             stride: [2, 2],
+                             paddingType: .valid(borderAmounts: [EdgeSizes(startEdgeSize: 0, endEdgeSize: 0),
+                                                                 EdgeSizes(startEdgeSize: 0, endEdgeSize: 0)]),
+                             avgPoolExcludePadding: true,
+                             globalPooling: false)
+                Convolution(name: "convolution2",
+                             input: ["outPooling1"],
+                             output: ["outConvolution2"],
+                             outputChannels: 32,
+                             kernelChannels: 32,
+                             nGroups: 1,
+                             kernelSize: [2, 2],
+                             stride: [1, 1],
+                             dilationFactor: [1, 1],
+                             paddingType: .same(mode: .bottomRightHeavy),
+                             outputShape: [],
+                             deconvolution: false,
+                             updatable: true)
+                ReLu(name: "relu2",
+                     input: ["outConvolution2"],
+                     output: ["outRelu2"])
+                Pooling(name: "pooling2",
+                             input: ["outRelu2"],
+                             output: ["outPooling2"],
+                             poolingType: .max,
+                             kernelSize: [2, 2],
+                             stride: [2, 2],
+                             paddingType: .valid(borderAmounts: [EdgeSizes(startEdgeSize: 0, endEdgeSize: 0),
+                                                                 EdgeSizes(startEdgeSize: 0, endEdgeSize: 0)]),
+                             avgPoolExcludePadding: true,
+                             globalPooling: false)
+                Convolution(name: "convolution3",
+                             input: ["outPooling2"],
+                             output: ["outConvolution3"],
+                             outputChannels: 32,
+                             kernelChannels: 32,
+                             nGroups: 1,
+                             kernelSize: [2, 2],
+                             stride: [1, 1],
+                             dilationFactor: [1, 1],
+                             paddingType: .same(mode: .bottomRightHeavy),
+                             outputShape: [],
+                             deconvolution: false,
+                             updatable: true)
+                ReLu(name: "relu3",
+                     input: ["outConvolution3"],
+                     output: ["outRelu3"])
+                Pooling(name: "pooling3",
+                             input: ["outRelu3"],
+                             output: ["outPooling3"],
+                             poolingType: .max,
+                             kernelSize: [2, 2],
+                             stride: [2, 2],
+                             paddingType: .valid(borderAmounts: [EdgeSizes(startEdgeSize: 0, endEdgeSize: 0),
+                                                                 EdgeSizes(startEdgeSize: 0, endEdgeSize: 0)]),
+                             avgPoolExcludePadding: true,
+                             globalPooling: false)
+                Flatten(name: "flatten1",
+                             input: ["outPooling3"],
+                             output: ["outFlatten1"],
+                             mode: .last)
+                InnerProduct(name: "dense1",
+                             input: ["outFlatten1"],
+                             output: ["outDense1"],
+                             inputChannels: 288,
+                             outputChannels: 500,
+                             updatable: true)
+                ReLu(name: "relu4",
+                     input: ["outDense1"],
+                     output: ["outRelu4"])
+                InnerProduct(name: "dense2",
+                             input: ["outRelu4"],
+                             output: ["outDense2"],
+                             inputChannels: 500,
+                             outputChannels: 10,
+                             updatable: true)
+                Softmax(name: "softmax",
+                     input: ["outDense2"],
+                     output: ["output"])
             }
         }
         
