@@ -10,14 +10,40 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var mnist = MNIST()
-    
+
+    func isDataReady(for status: MNIST.BatchPreparationStatus) -> Bool {
+        switch status {
+        case .ready: return true
+        default: return false
+        }
+    }
+
+    func isDataPreparing(for status: MNIST.BatchPreparationStatus) -> Bool {
+        switch status {
+        case .preparing: return true
+        default: return false
+        }
+    }
+
+
     var body: some View {
-        VStack {
-            Text("\(mnist.batchStatus.description) \(mnist.batchProvider?.count ?? 0)")
-            Button(action: {
-                self.mnist.asyncPrepareBatchProvider()
-            }) {
-                Text("Start")
+        Form {
+            Section(header: Text("Dataset")) {
+                HStack {
+                    Text("\(mnist.batchStatus.description)")
+                    if isDataReady(for: mnist.batchStatus) {
+                        Text(" \(mnist.batchProvider!.count) samples")
+                    }
+                    Spacer()
+                    Button(action: {
+                        self.mnist.asyncPrepareBatchProvider()
+                    }) {
+                        Text("Start")
+                    }.disabled(isDataPreparing(for: mnist.batchStatus))
+                }
+            }
+            Section(header: Text("Model")) {
+                Text("Todo")
             }
         }
     }

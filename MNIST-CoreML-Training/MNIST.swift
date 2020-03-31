@@ -18,11 +18,11 @@ public class MNIST : ObservableObject {
         var description: String {
             switch self {
             case .notPrepared:
-                return "notPrepared"
+                return "Not Prepared"
             case .preparing(let count):
-                return "preparing \(count)"
+                return "Preparing \(count)"
             case .ready:
-                return "ready"
+                return "Ready"
             }
         }
     }
