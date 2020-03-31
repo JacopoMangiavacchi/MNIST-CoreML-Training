@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		EA0B38BD2432A8950047E786 /* MNIST.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = EA0B38BC2432A8950047E786 /* MNIST.mlmodel */; };
 		EACC9DF824318F740067E304 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACC9DF724318F740067E304 /* AppDelegate.swift */; };
 		EACC9DFA24318F740067E304 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACC9DF924318F740067E304 /* SceneDelegate.swift */; };
 		EACC9DFC24318F740067E304 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACC9DFB24318F740067E304 /* ContentView.swift */; };
@@ -17,19 +16,7 @@
 		EACC9E142431906A0067E304 /* MNISTData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACC9E122431906A0067E304 /* MNISTData.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		EA0B38B4243280D70047E786 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = EA0B38B0243280D60047E786 /* PrepareData.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = EA0B38A6243280D60047E786;
-			remoteInfo = PrepareData;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
-		EA0B38B0243280D60047E786 /* PrepareData.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PrepareData.xcodeproj; path = PrepareData/PrepareData.xcodeproj; sourceTree = SOURCE_ROOT; };
-		EA0B38BC2432A8950047E786 /* MNIST.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = MNIST.mlmodel; path = "../../Downloads/mnist-coreml-master/MNIST.mlmodel"; sourceTree = "<group>"; };
 		EACC9DF424318F740067E304 /* MNIST-CoreML-Training.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MNIST-CoreML-Training.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EACC9DF724318F740067E304 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EACC9DF924318F740067E304 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -53,14 +40,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		EA0B38B1243280D60047E786 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				EA0B38B5243280D70047E786 /* PrepareData */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		EACC9DEB24318F740067E304 = {
 			isa = PBXGroup;
 			children = (
@@ -80,8 +59,6 @@
 		EACC9DF624318F740067E304 /* MNIST-CoreML-Training */ = {
 			isa = PBXGroup;
 			children = (
-				EA0B38BC2432A8950047E786 /* MNIST.mlmodel */,
-				EA0B38B0243280D60047E786 /* PrepareData.xcodeproj */,
 				EACC9E122431906A0067E304 /* MNISTData.swift */,
 				EACC9DFB24318F740067E304 /* ContentView.swift */,
 				EACC9E1024318FC10067E304 /* MNIST-CoreML-Training.entitlements */,
@@ -153,28 +130,12 @@
 			);
 			productRefGroup = EACC9DF524318F740067E304 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = EA0B38B1243280D60047E786 /* Products */;
-					ProjectRef = EA0B38B0243280D60047E786 /* PrepareData.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				EACC9DF324318F740067E304 /* MNIST-CoreML-Training */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		EA0B38B5243280D70047E786 /* PrepareData */ = {
-			isa = PBXReferenceProxy;
-			fileType = "compiled.mach-o.executable";
-			path = PrepareData;
-			remoteRef = EA0B38B4243280D70047E786 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		EACC9DF224318F740067E304 /* Resources */ = {
@@ -197,7 +158,6 @@
 				EACC9E142431906A0067E304 /* MNISTData.swift in Sources */,
 				EACC9DF824318F740067E304 /* AppDelegate.swift in Sources */,
 				EACC9DFA24318F740067E304 /* SceneDelegate.swift in Sources */,
-				EA0B38BD2432A8950047E786 /* MNIST.mlmodel in Sources */,
 				EACC9DFC24318F740067E304 /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
