@@ -1,5 +1,5 @@
 //
-//  MNISTData.swift
+//  MNIST.swift
 //  CoreML_Training
 //
 //  Created by Jacopo Mangiavacchi on 3/29/20.
@@ -7,60 +7,52 @@
 //
 
 import Foundation
+import CoreML
 
-public struct MNISTData {
-    public let numTrainRecords: Int
-    public let numTestRecords: Int
+public class MNIST : ObservableObject {
+    @Published public var batchProvider: MLBatchProvider?
     
-    public let xTrain: [[Float]]
-    public let yTrain: [[Int]]
-
-    public let xTest: [[Float]]
-    public let yTest: [[Int]]
-    
-    static func processFile(path: URL) -> (numRecords: Int, image: [[Float]], label: [[Int]]) {
+    public init() {
         func oneHotEncode(_ n: Int) -> [Int] {
             var encode = Array(repeating: 0, count: 10)
             encode[n] = 1
             return encode
         }
-        
-        var image = [[Float]]()
-        var label = [[Int]]()
 
+        var featureProviders = [MLFeatureProvider]()
+        
         errno = 0
-        if freopen(path.path, "r", stdin) == nil {
+        let trainFilePath = Bundle.main.url(forResource: "mnist_train", withExtension: "csv")!
+        if freopen(trainFilePath.path, "r", stdin) == nil {
             print("error opening file")
         }
         while let line = readLine()?.split(separator: ",") {
-            label.append(oneHotEncode(Int(String(line[0]))!))
-            image.append(Array(line[1...].map{ Float(String($0))! / Float(255.0) }))
+            let imageMultiArr = try! MLMultiArray(shape: [28, 28], dataType: .float32)
+            let outputMultiArr = try! MLMultiArray(shape: [10], dataType: .int32)
+
+            for r in 0..<28 {
+                for c in 0..<28 {
+                    let i = (r*28)+c
+                    imageMultiArr[i] = NSNumber(value: Float(String(line[i + 1]))! / Float(255.0))
+                }
+            }
+
+            let oneHot = oneHotEncode(Int(String(line[0]))!)
+            for i in 0..<10 {
+                outputMultiArr[i] = NSNumber(value: oneHot[i])
+            }
+            
+            let imageValue = MLFeatureValue(multiArray: imageMultiArr)
+            let outputValue = MLFeatureValue(multiArray: outputMultiArr)
+
+            let dataPointFeatures: [String: MLFeatureValue] = ["image": imageValue,
+                                                               "output_true": outputValue]
+            
+            if let provider = try? MLDictionaryFeatureProvider(dictionary: dataPointFeatures) {
+                featureProviders.append(provider)
+            }
         }
-
-//
-//
-//        // Load Data
-//        let data = try! String(contentsOf: path, encoding: String.Encoding.utf8)
-//
-//        // Convert Space Separated CSV with no Header
-//        var image = [[Float]]()
-//        var label = [[Int]]()
-//
-//        data.split(separator: "\r\n")
-//            .map{ String($0).split(separator: ",").map{ Int(String($0))! } }
-//            .forEach{ (intList: [Int]) in
-//                image.append(Array(intList[1...].map{ Float($0) / Float(255.0) }))
-//                label.append(oneHotEncode(intList[0]))
-//            }
-//
-        return (image.count, image, label)
-    }
-
-    public init() {
-        let trainFilePath = Bundle.main.url(forResource: "mnist_train", withExtension: "csv")!
-        let testFilePath = Bundle.main.url(forResource: "mnist_test", withExtension: "csv")!
-
-        (self.numTrainRecords, self.xTrain, self.yTrain) = MNISTData.processFile(path: trainFilePath)
-        (self.numTestRecords, self.xTest, self.yTest) = MNISTData.processFile(path: testFilePath)
+        
+        self.batchProvider = MLArrayBatchProvider(array: featureProviders)
     }
 }

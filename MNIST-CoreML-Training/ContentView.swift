@@ -9,10 +9,10 @@
 import SwiftUI
 
 struct ContentView: View {
-    let data = MNISTData()
+    @ObservedObject var mnist = MNIST()
     
     var body: some View {
-        Text("\(data.numTrainRecords) \(data.numTestRecords)")
+        Text("\(mnist.batchProvider?.count ?? 0)")
     }
 }
 
