@@ -3,12 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		EA0B38C824339D2F0047E786 /* MNIST.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0B38C724339D2F0047E786 /* MNIST.swift */; };
 		EA0B38CB24339DA40047E786 /* mnist_train.csv in Resources */ = {isa = PBXBuildFile; fileRef = EA0B38CA24339DA40047E786 /* mnist_train.csv */; };
+		EA0B38CE2433A50B0047E786 /* SwiftCoreMLTools in Frameworks */ = {isa = PBXBuildFile; productRef = EA0B38CD2433A50B0047E786 /* SwiftCoreMLTools */; };
 		EACC9DF824318F740067E304 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACC9DF724318F740067E304 /* AppDelegate.swift */; };
 		EACC9DFA24318F740067E304 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACC9DF924318F740067E304 /* SceneDelegate.swift */; };
 		EACC9DFC24318F740067E304 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACC9DFB24318F740067E304 /* ContentView.swift */; };
@@ -19,7 +20,7 @@
 
 /* Begin PBXFileReference section */
 		EA0B38C724339D2F0047E786 /* MNIST.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MNIST.swift; sourceTree = "<group>"; };
-		EA0B38CA24339DA40047E786 /* mnist_train.csv */ = {isa = PBXFileReference; lastKnownFileType = file; name = mnist_train.csv; path = Data/mnist_train.csv; sourceTree = SOURCE_ROOT; };
+		EA0B38CA24339DA40047E786 /* mnist_train.csv */ = {isa = PBXFileReference; lastKnownFileType = text; name = mnist_train.csv; path = Data/mnist_train.csv; sourceTree = SOURCE_ROOT; };
 		EACC9DF424318F740067E304 /* MNIST-CoreML-Training.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MNIST-CoreML-Training.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EACC9DF724318F740067E304 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EACC9DF924318F740067E304 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -36,6 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA0B38CE2433A50B0047E786 /* SwiftCoreMLTools in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,6 +110,7 @@
 			);
 			name = "MNIST-CoreML-Training";
 			packageProductDependencies = (
+				EA0B38CD2433A50B0047E786 /* SwiftCoreMLTools */,
 			);
 			productName = "MNIST-CoreML-Training";
 			productReference = EACC9DF424318F740067E304 /* MNIST-CoreML-Training.app */;
@@ -138,6 +141,7 @@
 			);
 			mainGroup = EACC9DEB24318F740067E304;
 			packageReferences = (
+				EA0B38CC2433A50B0047E786 /* XCRemoteSwiftPackageReference "SwiftCoreMLTools" */,
 			);
 			productRefGroup = EACC9DF524318F740067E304 /* Products */;
 			projectDirPath = "";
@@ -368,6 +372,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		EA0B38CC2433A50B0047E786 /* XCRemoteSwiftPackageReference "SwiftCoreMLTools" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/JacopoMangiavacchi/SwiftCoreMLTools";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.8;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		EA0B38CD2433A50B0047E786 /* SwiftCoreMLTools */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EA0B38CC2433A50B0047E786 /* XCRemoteSwiftPackageReference "SwiftCoreMLTools" */;
+			productName = SwiftCoreMLTools;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = EACC9DEC24318F740067E304 /* Project object */;
 }

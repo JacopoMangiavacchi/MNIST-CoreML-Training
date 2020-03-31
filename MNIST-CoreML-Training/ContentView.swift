@@ -25,7 +25,6 @@ struct ContentView: View {
         }
     }
 
-
     var body: some View {
         Form {
             Section(header: Text("Dataset")) {
@@ -43,7 +42,15 @@ struct ContentView: View {
                 }
             }
             Section(header: Text("Model")) {
-                Text("Todo")
+                HStack {
+                    Text("Prepare model")
+                    Spacer()
+                    Button(action: {
+                        self.mnist.prepareModel()
+                    }) {
+                        Text("Start")
+                    }.disabled(!isDataReady(for: mnist.batchStatus))
+                }
             }
         }
     }
