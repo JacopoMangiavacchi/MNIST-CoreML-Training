@@ -7,16 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EA0B38C824339D2F0047E786 /* MNIST.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0B38C724339D2F0047E786 /* MNIST.swift */; };
+		EA0B38CB24339DA40047E786 /* mnist_train.csv in Resources */ = {isa = PBXBuildFile; fileRef = EA0B38CA24339DA40047E786 /* mnist_train.csv */; };
 		EACC9DF824318F740067E304 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACC9DF724318F740067E304 /* AppDelegate.swift */; };
 		EACC9DFA24318F740067E304 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACC9DF924318F740067E304 /* SceneDelegate.swift */; };
 		EACC9DFC24318F740067E304 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACC9DFB24318F740067E304 /* ContentView.swift */; };
 		EACC9DFE24318F770067E304 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EACC9DFD24318F770067E304 /* Assets.xcassets */; };
 		EACC9E0124318F770067E304 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EACC9E0024318F770067E304 /* Preview Assets.xcassets */; };
 		EACC9E0424318F770067E304 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EACC9E0224318F770067E304 /* LaunchScreen.storyboard */; };
-		EACC9E142431906A0067E304 /* MNISTData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACC9E122431906A0067E304 /* MNISTData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EA0B38C724339D2F0047E786 /* MNIST.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MNIST.swift; sourceTree = "<group>"; };
+		EA0B38CA24339DA40047E786 /* mnist_train.csv */ = {isa = PBXFileReference; lastKnownFileType = file; name = mnist_train.csv; path = Data/mnist_train.csv; sourceTree = SOURCE_ROOT; };
 		EACC9DF424318F740067E304 /* MNIST-CoreML-Training.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MNIST-CoreML-Training.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EACC9DF724318F740067E304 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EACC9DF924318F740067E304 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -26,7 +29,6 @@
 		EACC9E0324318F770067E304 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EACC9E0524318F770067E304 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EACC9E1024318FC10067E304 /* MNIST-CoreML-Training.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "MNIST-CoreML-Training.entitlements"; sourceTree = "<group>"; };
-		EACC9E122431906A0067E304 /* MNISTData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MNISTData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +42,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EA0B38C924339D930047E786 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				EA0B38CA24339DA40047E786 /* mnist_train.csv */,
+			);
+			name = Data;
+			sourceTree = "<group>";
+		};
 		EACC9DEB24318F740067E304 = {
 			isa = PBXGroup;
 			children = (
@@ -59,7 +69,8 @@
 		EACC9DF624318F740067E304 /* MNIST-CoreML-Training */ = {
 			isa = PBXGroup;
 			children = (
-				EACC9E122431906A0067E304 /* MNISTData.swift */,
+				EA0B38C924339D930047E786 /* Data */,
+				EA0B38C724339D2F0047E786 /* MNIST.swift */,
 				EACC9DFB24318F740067E304 /* ContentView.swift */,
 				EACC9E1024318FC10067E304 /* MNIST-CoreML-Training.entitlements */,
 				EACC9DF724318F740067E304 /* AppDelegate.swift */,
@@ -143,6 +154,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EACC9E0424318F770067E304 /* LaunchScreen.storyboard in Resources */,
+				EA0B38CB24339DA40047E786 /* mnist_train.csv in Resources */,
 				EACC9E0124318F770067E304 /* Preview Assets.xcassets in Resources */,
 				EACC9DFE24318F770067E304 /* Assets.xcassets in Resources */,
 			);
@@ -155,8 +167,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EACC9E142431906A0067E304 /* MNISTData.swift in Sources */,
 				EACC9DF824318F740067E304 /* AppDelegate.swift in Sources */,
+				EA0B38C824339D2F0047E786 /* MNIST.swift in Sources */,
 				EACC9DFA24318F740067E304 /* SceneDelegate.swift in Sources */,
 				EACC9DFC24318F740067E304 /* ContentView.swift in Sources */,
 			);
