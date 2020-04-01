@@ -106,9 +106,9 @@ public class MNIST : ObservableObject {
                                 author: "Jacopo Mangiavacchi",
                                 license: "MIT",
                                 userDefined: ["SwiftCoremltoolsVersion" : "0.0.8"]) {
-            Input(name: "image", shape: [28, 28])
+            Input(name: "image", shape: [28, 28, 1])
             Output(name: "output", shape: [10])
-            TrainingInput(name: "image", shape: [28, 28])
+            TrainingInput(name: "image", shape: [28, 28, 1])
             TrainingInput(name: "output_true", shape: [10])
             NeuralNetwork(losses: [CategoricalCrossEntropy(name: "lossLayer",
                                        input: "output",
@@ -208,24 +208,24 @@ public class MNIST : ObservableObject {
                              input: ["outPooling3"],
                              output: ["outFlatten1"],
                              mode: .last)
-                InnerProduct(name: "dense1",
+                InnerProduct(name: "hidden1",
                              input: ["outFlatten1"],
-                             output: ["outDense1"],
+                             output: ["outHidden1"],
                              inputChannels: 288,
                              outputChannels: 500,
                              updatable: true)
                 ReLu(name: "relu4",
-                     input: ["outDense1"],
+                     input: ["outHidden1"],
                      output: ["outRelu4"])
-                InnerProduct(name: "dense2",
+                InnerProduct(name: "hidden2",
                              input: ["outRelu4"],
-                             output: ["outDense2"],
+                             output: ["outHidden2"],
                              inputChannels: 500,
                              outputChannels: 10,
                              updatable: true)
                 Softmax(name: "softmax",
-                     input: ["outDense2"],
-                     output: ["output"])
+                        input: ["outHidden2"],
+                        output: ["output"])
             }
         }
         
