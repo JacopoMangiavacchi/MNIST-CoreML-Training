@@ -61,7 +61,7 @@ public class MNIST : ObservableObject {
                     self.batchStatus = .preparing(count: count)
                 }
 
-                let imageMultiArr = try! MLMultiArray(shape: [28, 28], dataType: .float32)
+                let imageMultiArr = try! MLMultiArray(shape: [28, 28, 1], dataType: .float32)
                 let outputMultiArr = try! MLMultiArray(shape: [10], dataType: .int32)
 
                 for r in 0..<28 {
@@ -126,9 +126,9 @@ public class MNIST : ObservableObject {
                           epochDefault: 6,
                           epochSet: [6],
                           shuffle: true) {
-                Convolution(name: "convolution1",
+                Convolution(name: "conv1",
                              input: ["image"],
-                             output: ["outConvolution1"],
+                             output: ["outConv1"],
                              outputChannels: 32,
                              kernelChannels: 1,
                              nGroups: 1,
@@ -140,7 +140,7 @@ public class MNIST : ObservableObject {
                              deconvolution: false,
                              updatable: true)
                 ReLu(name: "relu1",
-                     input: ["outConvolution1"],
+                     input: ["outConv1"],
                      output: ["outRelu1"])
                 Pooling(name: "pooling1",
                              input: ["outRelu1"],
@@ -152,9 +152,9 @@ public class MNIST : ObservableObject {
                                                                  EdgeSizes(startEdgeSize: 0, endEdgeSize: 0)]),
                              avgPoolExcludePadding: true,
                              globalPooling: false)
-                Convolution(name: "convolution2",
+                Convolution(name: "conv2",
                              input: ["outPooling1"],
-                             output: ["outConvolution2"],
+                             output: ["outConv2"],
                              outputChannels: 32,
                              kernelChannels: 32,
                              nGroups: 1,
@@ -166,7 +166,7 @@ public class MNIST : ObservableObject {
                              deconvolution: false,
                              updatable: true)
                 ReLu(name: "relu2",
-                     input: ["outConvolution2"],
+                     input: ["outConv2"],
                      output: ["outRelu2"])
                 Pooling(name: "pooling2",
                              input: ["outRelu2"],
@@ -178,9 +178,9 @@ public class MNIST : ObservableObject {
                                                                  EdgeSizes(startEdgeSize: 0, endEdgeSize: 0)]),
                              avgPoolExcludePadding: true,
                              globalPooling: false)
-                Convolution(name: "convolution3",
+                Convolution(name: "conv3",
                              input: ["outPooling2"],
-                             output: ["outConvolution3"],
+                             output: ["outConv3"],
                              outputChannels: 32,
                              kernelChannels: 32,
                              nGroups: 1,
@@ -192,7 +192,7 @@ public class MNIST : ObservableObject {
                              deconvolution: false,
                              updatable: true)
                 ReLu(name: "relu3",
-                     input: ["outConvolution3"],
+                     input: ["outConv3"],
                      output: ["outRelu3"])
                 Pooling(name: "pooling3",
                              input: ["outRelu3"],
