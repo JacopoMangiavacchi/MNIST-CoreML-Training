@@ -32,10 +32,13 @@ public class MNIST : ObservableObject {
     @Published public var batchStatus = BatchPreparationStatus.notPrepared
     @Published public var modelPrepared = false
     @Published public var modelCompiled = false
-
+    @Published public var modelTrained = false
+    @Published public var modelStatus = "Not trained yet"
+    
     var coreMLModelUrl: URL
     var coreMLCompiledModelUrl: URL?
     var model: MLModel?
+    var retrainedModel: MLModel?
     
     public init() {
         coreMLModelUrl = URL(fileURLWithPath: NSTemporaryDirectory())
@@ -244,5 +247,81 @@ public class MNIST : ObservableObject {
         print("Compiled Model Path: \(coreMLCompiledModelUrl!)")
         model = try! MLModel(contentsOf: coreMLCompiledModelUrl!)
         modelCompiled = true
+    }
+    
+    public func trainModel() {
+        self.modelTrained = false
+        self.modelStatus = "Training starting"
+        
+        let configuration = MLModelConfiguration()
+        configuration.computeUnits = .all
+        //configuration.parameters = [.epochs : 100]
+        let progressHandler = { (context: MLUpdateContext) in
+            switch context.event {
+            case .trainingBegin:
+                print("Training begin")
+                self.modelStatus = "Training begin"
+
+            case .miniBatchEnd:
+                break
+//                let batchIndex = context.metrics[.miniBatchIndex] as! Int
+//                let batchLoss = context.metrics[.lossValue] as! Double
+//                print("Mini batch \(batchIndex), loss: \(batchLoss)")
+            case .epochEnd:
+                let epochIndex = context.metrics[.epochIndex] as! Int
+                let trainLoss = context.metrics[.lossValue] as! Double
+                print("Epoch \(epochIndex) end with loss \(trainLoss)")
+                self.modelStatus = "Epoch \(epochIndex) end with loss \(trainLoss)"
+
+
+            default:
+                print("Unknown event")
+            }
+
+//        print(context.model.modelDescription.parameterDescriptionsByKey)
+//        do {
+//            let multiArray = try context.model.parameterValue(for: MLParameterKey.weights.scoped(to: "dense_1")) as! MLMultiArray
+//            print(multiArray.shape)
+//        } catch {
+//            print(error)
+//        }
+        }
+
+        let completionHandler = { (context: MLUpdateContext) in
+            print("Training completed with state \(context.task.state.rawValue)")
+            print("CoreML Error: \(context.task.error.debugDescription)")
+            self.modelStatus = "Training completed with state \(context.task.state.rawValue)"
+
+            if context.task.state != .completed {
+                print("Failed")
+                self.modelStatus = "Training Failed"
+                return
+            }
+
+            let trainLoss = context.metrics[.lossValue] as! Double
+            print("Final loss: \(trainLoss)")
+            self.modelStatus = "Training completed with loss: \(trainLoss)"
+
+            self.retrainedModel = context.model
+            self.modelTrained = true
+
+//            let updatedModel = context.model
+//            let updatedModelURL = URL(fileURLWithPath: retrainedCoreMLFilePath)
+//            try! updatedModel.write(to: updatedModelURL)
+            print("Model Trained!")
+        }
+
+        let handlers = MLUpdateProgressHandlers(
+                            forEvents: [.trainingBegin, .miniBatchEnd, .epochEnd],
+                            progressHandler: progressHandler,
+                            completionHandler: completionHandler)
+
+
+        let updateTask = try! MLUpdateTask(forModelAt: coreMLCompiledModelUrl!,
+                                           trainingData: batchProvider!,
+                                           configuration: configuration,
+                                           progressHandlers: handlers)
+
+        updateTask.resume()
     }
 }
