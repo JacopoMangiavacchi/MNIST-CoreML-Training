@@ -51,6 +51,15 @@ struct ContentView: View {
                         Text("Start")
                     }.disabled(!isDataReady(for: mnist.batchStatus))
                 }
+                HStack {
+                    Text("Compile model")
+                    Spacer()
+                    Button(action: {
+                        self.mnist.compileModel()
+                    }) {
+                        Text("Start")
+                    }.disabled(!mnist.modelPrepared)
+                }
             }
         }
     }

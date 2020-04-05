@@ -30,8 +30,12 @@ public class MNIST : ObservableObject {
     
     @Published public var batchProvider: MLBatchProvider?
     @Published public var batchStatus = BatchPreparationStatus.notPrepared
+    @Published public var modelPrepared = false
+    @Published public var modelCompiled = false
 
     var coreMLModelUrl: URL
+    var coreMLCompiledModelUrl: URL?
+    var model: MLModel?
     
     public init() {
         coreMLModelUrl = URL(fileURLWithPath: NSTemporaryDirectory())
@@ -39,7 +43,7 @@ public class MNIST : ObservableObject {
             .appendingPathExtension("mlmodel")
     }
     
-    func asyncPrepareBatchProvider() {
+    public func asyncPrepareBatchProvider() {
         func prepareBatchProvider() -> MLBatchProvider {
             func oneHotEncode(_ n: Int) -> [Int] {
                 var encode = Array(repeating: 0, count: 10)
@@ -61,7 +65,7 @@ public class MNIST : ObservableObject {
                     self.batchStatus = .preparing(count: count)
                 }
 
-                let imageMultiArr = try! MLMultiArray(shape: [28, 28, 1], dataType: .float32)
+                let imageMultiArr = try! MLMultiArray(shape: [1, 28, 28], dataType: .float32)
                 let outputMultiArr = try! MLMultiArray(shape: [10], dataType: .int32)
 
                 for r in 0..<28 {
@@ -100,15 +104,15 @@ public class MNIST : ObservableObject {
         }
     }
     
-    func prepareModel() {
+    public func prepareModel() {
         let coremlModel = Model(version: 4,
                                 shortDescription: "MNIST-Trainable",
                                 author: "Jacopo Mangiavacchi",
                                 license: "MIT",
                                 userDefined: ["SwiftCoremltoolsVersion" : "0.0.8"]) {
-            Input(name: "image", shape: [28, 28, 1])
+            Input(name: "image", shape: [1, 28, 28])
             Output(name: "output", shape: [10])
-            TrainingInput(name: "image", shape: [28, 28, 1])
+            TrainingInput(name: "image", shape: [1, 28, 28])
             TrainingInput(name: "output_true", shape: [10])
             NeuralNetwork(losses: [CategoricalCrossEntropy(name: "lossLayer",
                                        input: "output",
@@ -232,5 +236,13 @@ public class MNIST : ObservableObject {
         let coreMLData = coremlModel.coreMLData
         print(coreMLModelUrl)
         try! coreMLData!.write(to: coreMLModelUrl)
+        modelPrepared = true
+    }
+    
+    public func compileModel() {
+        coreMLCompiledModelUrl = try! MLModel.compileModel(at: coreMLModelUrl)
+        print("Compiled Model Path: \(coreMLCompiledModelUrl!)")
+        model = try! MLModel(contentsOf: coreMLCompiledModelUrl!)
+        modelCompiled = true
     }
 }
