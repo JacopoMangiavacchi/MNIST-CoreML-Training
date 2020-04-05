@@ -60,6 +60,15 @@ struct ContentView: View {
                         Text("Start")
                     }.disabled(!mnist.modelPrepared)
                 }
+                HStack {
+                    Text(self.mnist.modelStatus)
+                    Spacer()
+                    Button(action: {
+                        self.mnist.trainModel()
+                    }) {
+                        Text("Start")
+                    }.disabled(!mnist.modelCompiled)
+                }
             }
         }
     }

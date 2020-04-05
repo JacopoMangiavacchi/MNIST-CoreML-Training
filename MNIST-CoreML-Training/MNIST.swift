@@ -33,7 +33,7 @@ public class MNIST : ObservableObject {
     @Published public var modelPrepared = false
     @Published public var modelCompiled = false
     @Published public var modelTrained = false
-    @Published public var modelStatus = "Not trained yet"
+    @Published public var modelStatus = "Train model"
     
     var coreMLModelUrl: URL
     var coreMLCompiledModelUrl: URL?
@@ -260,7 +260,9 @@ public class MNIST : ObservableObject {
             switch context.event {
             case .trainingBegin:
                 print("Training begin")
-                self.modelStatus = "Training begin"
+                DispatchQueue.main.async {
+                    self.modelStatus = "Training begin"
+                }
 
             case .miniBatchEnd:
                 break
@@ -271,8 +273,9 @@ public class MNIST : ObservableObject {
                 let epochIndex = context.metrics[.epochIndex] as! Int
                 let trainLoss = context.metrics[.lossValue] as! Double
                 print("Epoch \(epochIndex) end with loss \(trainLoss)")
-                self.modelStatus = "Epoch \(epochIndex) end with loss \(trainLoss)"
-
+                DispatchQueue.main.async {
+                    self.modelStatus = "Epoch \(epochIndex) end with loss \(trainLoss)"
+                }
 
             default:
                 print("Unknown event")
@@ -290,20 +293,26 @@ public class MNIST : ObservableObject {
         let completionHandler = { (context: MLUpdateContext) in
             print("Training completed with state \(context.task.state.rawValue)")
             print("CoreML Error: \(context.task.error.debugDescription)")
-            self.modelStatus = "Training completed with state \(context.task.state.rawValue)"
+            DispatchQueue.main.async {
+                self.modelStatus = "Training completed with state \(context.task.state.rawValue)"
+            }
 
             if context.task.state != .completed {
                 print("Failed")
-                self.modelStatus = "Training Failed"
+                DispatchQueue.main.async {
+                    self.modelStatus = "Training Failed"
+                }
                 return
             }
 
             let trainLoss = context.metrics[.lossValue] as! Double
             print("Final loss: \(trainLoss)")
-            self.modelStatus = "Training completed with loss: \(trainLoss)"
+            DispatchQueue.main.async {
+                self.modelStatus = "Training completed with loss: \(trainLoss)"
+                self.modelTrained = true
+            }
 
             self.retrainedModel = context.model
-            self.modelTrained = true
 
 //            let updatedModel = context.model
 //            let updatedModelURL = URL(fileURLWithPath: retrainedCoreMLFilePath)
@@ -325,3 +334,4 @@ public class MNIST : ObservableObject {
         updateTask.resume()
     }
 }
+
