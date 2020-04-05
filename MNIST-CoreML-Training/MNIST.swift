@@ -48,9 +48,9 @@ public class MNIST : ObservableObject {
     
     public func asyncPrepareBatchProvider() {
         func prepareBatchProvider() -> MLBatchProvider {
-            func oneHotEncode(_ n: Int) -> [Int] {
-                var encode = Array(repeating: 0, count: 10)
-                encode[n] = 1
+            func oneHotEncode(_ n: Int) -> [Float] {
+                var encode = Array(repeating: Float(0), count: 10)
+                encode[n] = Float(1)
                 return encode
             }
 
@@ -69,7 +69,7 @@ public class MNIST : ObservableObject {
                 }
 
                 let imageMultiArr = try! MLMultiArray(shape: [1, 28, 28], dataType: .float32)
-                let outputMultiArr = try! MLMultiArray(shape: [10], dataType: .int32)
+                let outputMultiArr = try! MLMultiArray(shape: [10], dataType: .float32)
 
                 for r in 0..<28 {
                     for c in 0..<28 {
@@ -112,7 +112,7 @@ public class MNIST : ObservableObject {
                                 shortDescription: "MNIST-Trainable",
                                 author: "Jacopo Mangiavacchi",
                                 license: "MIT",
-                                userDefined: ["SwiftCoremltoolsVersion" : "0.0.8"]) {
+                                userDefined: ["SwiftCoremltoolsVersion" : "0.0.11"]) {
             Input(name: "image", shape: [1, 28, 28])
             Output(name: "output", shape: [10])
             TrainingInput(name: "image", shape: [1, 28, 28])
@@ -145,7 +145,7 @@ public class MNIST : ObservableObject {
                              paddingType: .same(mode: .bottomRightHeavy),
                              outputShape: [],
                              deconvolution: false,
-                             updatable: true)
+                             updatable: false)
                 ReLu(name: "relu1",
                      input: ["outConv1"],
                      output: ["outRelu1"])
@@ -171,7 +171,7 @@ public class MNIST : ObservableObject {
                              paddingType: .same(mode: .bottomRightHeavy),
                              outputShape: [],
                              deconvolution: false,
-                             updatable: true)
+                             updatable: false)
                 ReLu(name: "relu2",
                      input: ["outConv2"],
                      output: ["outRelu2"])
@@ -197,7 +197,7 @@ public class MNIST : ObservableObject {
                              paddingType: .same(mode: .bottomRightHeavy),
                              outputShape: [],
                              deconvolution: false,
-                             updatable: true)
+                             updatable: false)
                 ReLu(name: "relu3",
                      input: ["outConv3"],
                      output: ["outRelu3"])
