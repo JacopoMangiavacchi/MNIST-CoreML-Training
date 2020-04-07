@@ -145,7 +145,7 @@ public class MNIST : ObservableObject {
                              paddingType: .same(mode: .bottomRightHeavy),
                              outputShape: [],
                              deconvolution: false,
-                             updatable: false)
+                             updatable: true)
                 ReLu(name: "relu1",
                      input: ["outConv1"],
                      output: ["outRelu1"])
@@ -171,7 +171,7 @@ public class MNIST : ObservableObject {
                              paddingType: .same(mode: .bottomRightHeavy),
                              outputShape: [],
                              deconvolution: false,
-                             updatable: false)
+                             updatable: true)
                 ReLu(name: "relu2",
                      input: ["outConv2"],
                      output: ["outRelu2"])
@@ -197,7 +197,7 @@ public class MNIST : ObservableObject {
                              paddingType: .same(mode: .bottomRightHeavy),
                              outputShape: [],
                              deconvolution: false,
-                             updatable: false)
+                             updatable: true)
                 ReLu(name: "relu3",
                      input: ["outConv3"],
                      output: ["outRelu3"])
