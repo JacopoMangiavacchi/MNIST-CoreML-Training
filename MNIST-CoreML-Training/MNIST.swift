@@ -48,12 +48,6 @@ public class MNIST : ObservableObject {
     
     public func asyncPrepareBatchProvider() {
         func prepareBatchProvider() -> MLBatchProvider {
-            func oneHotEncode(_ n: Int) -> [Float] {
-                var encode = Array(repeating: Float(0), count: 10)
-                encode[n] = Float(1)
-                return encode
-            }
-
             var featureProviders = [MLFeatureProvider]()
             
             var count = 0
@@ -69,7 +63,7 @@ public class MNIST : ObservableObject {
                 }
 
                 let imageMultiArr = try! MLMultiArray(shape: [1, 28, 28], dataType: .float32)
-                let outputMultiArr = try! MLMultiArray(shape: [10], dataType: .float32)
+                let outputMultiArr = try! MLMultiArray(shape: [1], dataType: .int32)
 
                 for r in 0..<28 {
                     for c in 0..<28 {
@@ -78,10 +72,7 @@ public class MNIST : ObservableObject {
                     }
                 }
 
-                let oneHot = oneHotEncode(Int(String(line[0]))!)
-                for i in 0..<10 {
-                    outputMultiArr[i] = NSNumber(value: oneHot[i])
-                }
+                outputMultiArr[0] = NSNumber(value: Int(String(line[0]))!)
                 
                 let imageValue = MLFeatureValue(multiArray: imageMultiArr)
                 let outputValue = MLFeatureValue(multiArray: outputMultiArr)
@@ -112,11 +103,11 @@ public class MNIST : ObservableObject {
                                 shortDescription: "MNIST-Trainable",
                                 author: "Jacopo Mangiavacchi",
                                 license: "MIT",
-                                userDefined: ["SwiftCoremltoolsVersion" : "0.0.11"]) {
+                                userDefined: ["SwiftCoremltoolsVersion" : "0.0.12"]) {
             Input(name: "image", shape: [1, 28, 28])
-            Output(name: "output", shape: [10])
+            Output(name: "output", shape: [10], featureType: .int)
             TrainingInput(name: "image", shape: [1, 28, 28])
-            TrainingInput(name: "output_true", shape: [10])
+            TrainingInput(name: "output_true", shape: [1], featureType: .int)
             NeuralNetwork(losses: [CategoricalCrossEntropy(name: "lossLayer",
                                        input: "output",
                                        target: "output_true")],
