@@ -41,7 +41,7 @@ struct ContentView: View {
                     }.disabled(isDataPreparing(for: mnist.batchStatus))
                 }
             }
-            Section(header: Text("Model")) {
+            Section(header: Text("Training")) {
                 HStack {
                     Text("Prepare model")
                     Spacer()
