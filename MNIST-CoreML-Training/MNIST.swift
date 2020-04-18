@@ -161,7 +161,7 @@ public class MNIST : ObservableObject {
                                 license: "MIT",
                                 userDefined: ["SwiftCoremltoolsVersion" : "0.0.12"]) {
             Input(name: "image", shape: [1, 28, 28])
-            Output(name: "output", shape: [10], featureType: .int)
+            Output(name: "output", shape: [10], featureType: .float)
             TrainingInput(name: "image", shape: [1, 28, 28])
             TrainingInput(name: "output_true", shape: [1], featureType: .int)
             NeuralNetwork(losses: [CategoricalCrossEntropy(name: "lossLayer",
@@ -363,14 +363,12 @@ public class MNIST : ObservableObject {
         print(predictionProvider!.count)
         var correct = 0
         for i in 0..<predictionProvider!.count {
-            let prediction = predictionProvider!.features(at: i).featureValue(for: "output")!.multiArrayValue![0].intValue
             let label = predictionLabels[i]
-            
-            if prediction == label {
+            let predictionEncoded = predictionProvider!.features(at: i).featureValue(for: "output")!
+
+            if predictionEncoded.multiArrayValue![label].floatValue > 0.5 {
                 correct += 1
             }
-            
-            print("\(prediction) - \(label)")
         }
         
         let accuracy = Float(correct) / Float(predictionProvider!.count)
