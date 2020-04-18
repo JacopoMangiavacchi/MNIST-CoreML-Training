@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var mnist = MNIST()
-
+    
     func isDataReady(for status: MNIST.BatchPreparationStatus) -> Bool {
         switch status {
         case .ready: return true
@@ -54,6 +54,7 @@ struct ContentView: View {
                 }
             }
             Section(header: Text("Training")) {
+                Stepper(value: $mnist.epoch, in: 1...10, label: { Text("Epoch:  \(mnist.epoch)")})
                 HStack {
                     Text("Prepare model")
                     Spacer()

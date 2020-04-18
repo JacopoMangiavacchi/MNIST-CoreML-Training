@@ -38,7 +38,8 @@ public class MNIST : ObservableObject {
     @Published public var modelTrained = false
     @Published public var modelStatus = "Train model"
     @Published public var accuracy = "Accuracy: n/a"
-    
+    @Published public var epoch: Int = 5
+
     var coreMLModelUrl: URL
     var coreMLCompiledModelUrl: URL?
     var model: MLModel?
@@ -178,8 +179,8 @@ public class MNIST : ObservableObject {
                                          beta2Max: 1.0,
                                          epsDefault: 0.00000001,
                                          epsMax: 0.00000001),
-                          epochDefault: 5,
-                          epochSet: [5],
+                          epochDefault: UInt(self.epoch),
+                          epochSet: [UInt(self.epoch)],
                           shuffle: true) {
                 Convolution(name: "conv1",
                              input: ["image"],
