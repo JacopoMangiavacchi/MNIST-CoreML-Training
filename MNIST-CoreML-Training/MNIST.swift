@@ -44,6 +44,7 @@ public class MNIST : ObservableObject {
     var model: MLModel?
     var retrainedModel: MLModel?
     var predictionLabels: [Int]
+    var trainingStartTime: Date!
     
     public init() {
         coreMLModelUrl = URL(fileURLWithPath: NSTemporaryDirectory())
@@ -331,7 +332,7 @@ public class MNIST : ObservableObject {
             let trainLoss = context.metrics[.lossValue] as! Double
             print("Final loss: \(trainLoss)")
             DispatchQueue.main.async {
-                self.modelStatus = "Training completed with loss: \(trainLoss)"
+                self.modelStatus = "Training completed with loss: \(trainLoss) in \(Int(Date().timeIntervalSince(self.trainingStartTime))) secs"
                 self.modelTrained = true
             }
 
@@ -348,7 +349,8 @@ public class MNIST : ObservableObject {
                             progressHandler: progressHandler,
                             completionHandler: completionHandler)
 
-
+        self.trainingStartTime = Date()
+        
         let updateTask = try! MLUpdateTask(forModelAt: coreMLCompiledModelUrl!,
                                            trainingData: trainingBatchProvider!,
                                            configuration: configuration,
