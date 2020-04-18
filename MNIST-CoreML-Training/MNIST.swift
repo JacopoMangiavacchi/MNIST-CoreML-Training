@@ -175,8 +175,8 @@ public class MNIST : ObservableObject {
                                          beta2Max: 1.0,
                                          epsDefault: 0.00000001,
                                          epsMax: 0.00000001),
-                          epochDefault: 10,
-                          epochSet: [10],
+                          epochDefault: 3,
+                          epochSet: [3],
                           shuffle: true) {
                 Convolution(name: "conv1",
                              input: ["image"],
@@ -280,9 +280,9 @@ public class MNIST : ObservableObject {
         let progressHandler = { (context: MLUpdateContext) in
             switch context.event {
             case .trainingBegin:
-                print("Training started")
+                print("Training started..")
                 DispatchQueue.main.async {
-                    self.modelStatus = "Training started"
+                    self.modelStatus = "Training started.."
                 }
 
             case .miniBatchEnd:
@@ -353,6 +353,9 @@ public class MNIST : ObservableObject {
                                            progressHandlers: handlers)
 
         updateTask.resume()
+    }
+    
+    public func testModel() {
     }
 }
 

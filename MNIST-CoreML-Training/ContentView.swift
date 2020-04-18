@@ -82,6 +82,17 @@ struct ContentView: View {
                     }.disabled(!mnist.modelCompiled)
                 }
             }
+            Section(header: Text("Prediction")) {
+                HStack {
+                    Text("Predict Test data")
+                    Spacer()
+                    Button(action: {
+                        self.mnist.testModel()
+                    }) {
+                        Text("Start")
+                    }.disabled(!isDataReady(for: mnist.predictionBatchStatus) || !mnist.modelTrained)
+                }
+            }
         }
     }
 }
