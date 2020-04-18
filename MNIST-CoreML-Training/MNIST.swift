@@ -9,6 +9,7 @@
 import Foundation
 import CoreML
 import SwiftCoreMLTools
+import UIKit
 
 public class MNIST : ObservableObject {
     public enum BatchPreparationStatus {
@@ -36,6 +37,7 @@ public class MNIST : ObservableObject {
     @Published public var modelCompiled = false
     @Published public var modelTrained = false
     @Published public var modelStatus = "Train model"
+    @Published public var accuracy = "Accuracy: n/a"
     
     var coreMLModelUrl: URL
     var coreMLCompiledModelUrl: URL?
@@ -165,18 +167,18 @@ public class MNIST : ObservableObject {
             NeuralNetwork(losses: [CategoricalCrossEntropy(name: "lossLayer",
                                        input: "output",
                                        target: "output_true")],
-                          optimizer: Adam(learningRateDefault: 0.001,
+                          optimizer: Adam(learningRateDefault: 0.0001,
                                          learningRateMax: 0.3,
-                                         miniBatchSizeDefault: 32,
-                                         miniBatchSizeRange: [32],
+                                         miniBatchSizeDefault: 128,
+                                         miniBatchSizeRange: [128],
                                          beta1Default: 0.9,
                                          beta1Max: 1.0,
                                          beta2Default: 0.999,
                                          beta2Max: 1.0,
                                          epsDefault: 0.00000001,
                                          epsMax: 0.00000001),
-                          epochDefault: 3,
-                          epochSet: [3],
+                          epochDefault: 5,
+                          epochSet: [5],
                           shuffle: true) {
                 Convolution(name: "conv1",
                              input: ["image"],
@@ -356,6 +358,25 @@ public class MNIST : ObservableObject {
     }
     
     public func testModel() {
+        let predictionProvider = try! self.retrainedModel?.predictions(fromBatch: predictionBatchProvider!)
+
+        print(predictionProvider!.count)
+        var correct = 0
+        for i in 0..<predictionProvider!.count {
+            let prediction = predictionProvider!.features(at: i).featureValue(for: "output")!.multiArrayValue![0].intValue
+            let label = predictionLabels[i]
+            
+            if prediction == label {
+                correct += 1
+            }
+            
+            print("\(prediction) - \(label)")
+        }
+        
+        let accuracy = Float(correct) / Float(predictionProvider!.count)
+        
+        print("Accuracy: \(accuracy)")
+        self.accuracy = "Accuracy: \(accuracy)"
     }
 }
 

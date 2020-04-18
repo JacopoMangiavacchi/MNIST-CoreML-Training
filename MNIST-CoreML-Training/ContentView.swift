@@ -92,6 +92,7 @@ struct ContentView: View {
                         Text("Start")
                     }.disabled(!isDataReady(for: mnist.predictionBatchStatus) || !mnist.modelTrained)
                 }
+                Text(self.mnist.accuracy)
             }
         }
     }
