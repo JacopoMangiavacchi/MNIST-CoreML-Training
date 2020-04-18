@@ -29,16 +29,28 @@ struct ContentView: View {
         Form {
             Section(header: Text("Dataset")) {
                 HStack {
-                    Text("\(mnist.batchStatus.description)")
-                    if isDataReady(for: mnist.batchStatus) {
-                        Text(" \(mnist.batchProvider!.count) samples")
+                    Text("Training: \(mnist.trainingBatchStatus.description)")
+                    if isDataReady(for: mnist.trainingBatchStatus) {
+                        Text(" \(mnist.trainingBatchProvider!.count) samples")
                     }
                     Spacer()
                     Button(action: {
-                        self.mnist.asyncPrepareBatchProvider()
+                        self.mnist.asyncPrepareTrainBatchProvider()
                     }) {
                         Text("Start")
-                    }.disabled(isDataPreparing(for: mnist.batchStatus))
+                    }.disabled(isDataPreparing(for: mnist.trainingBatchStatus))
+                }
+                HStack {
+                    Text("Prediction: \(mnist.predictionBatchStatus.description)")
+                    if isDataReady(for: mnist.predictionBatchStatus) {
+                        Text(" \(mnist.predictionBatchProvider!.count) samples")
+                    }
+                    Spacer()
+                    Button(action: {
+                        self.mnist.asyncPreparePredictionBatchProvider()
+                    }) {
+                        Text("Start")
+                    }.disabled(isDataPreparing(for: mnist.predictionBatchStatus))
                 }
             }
             Section(header: Text("Training")) {
@@ -49,7 +61,7 @@ struct ContentView: View {
                         self.mnist.prepareModel()
                     }) {
                         Text("Start")
-                    }.disabled(!isDataReady(for: mnist.batchStatus))
+                    }.disabled(!isDataReady(for: mnist.trainingBatchStatus))
                 }
                 HStack {
                     Text("Compile model")

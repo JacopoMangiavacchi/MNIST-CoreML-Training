@@ -28,8 +28,10 @@ public class MNIST : ObservableObject {
         }
     }
     
-    @Published public var batchProvider: MLBatchProvider?
-    @Published public var batchStatus = BatchPreparationStatus.notPrepared
+    @Published public var trainingBatchProvider: MLBatchProvider?
+    @Published public var trainingBatchStatus = BatchPreparationStatus.notPrepared
+    @Published public var predictionBatchProvider: MLBatchProvider?
+    @Published public var predictionBatchStatus = BatchPreparationStatus.notPrepared
     @Published public var modelPrepared = false
     @Published public var modelCompiled = false
     @Published public var modelTrained = false
@@ -39,14 +41,16 @@ public class MNIST : ObservableObject {
     var coreMLCompiledModelUrl: URL?
     var model: MLModel?
     var retrainedModel: MLModel?
+    var predictionLabels: [Int]
     
     public init() {
         coreMLModelUrl = URL(fileURLWithPath: NSTemporaryDirectory())
             .appendingPathComponent("MNIST_Model")
             .appendingPathExtension("mlmodel")
+        predictionLabels = [Int]()
     }
     
-    public func asyncPrepareBatchProvider() {
+    public func asyncPrepareTrainBatchProvider() {
         func prepareBatchProvider() -> MLBatchProvider {
             var featureProviders = [MLFeatureProvider]()
             
@@ -59,7 +63,7 @@ public class MNIST : ObservableObject {
             while let line = readLine()?.split(separator: ",") {
                 count += 1
                 DispatchQueue.main.async {
-                    self.batchStatus = .preparing(count: count)
+                    self.trainingBatchStatus = .preparing(count: count)
                 }
 
                 let imageMultiArr = try! MLMultiArray(shape: [1, 28, 28], dataType: .float32)
@@ -88,12 +92,62 @@ public class MNIST : ObservableObject {
             return MLArrayBatchProvider(array: featureProviders)
         }
         
-        self.batchStatus = .preparing(count: 0)
+        self.trainingBatchStatus = .preparing(count: 0)
         DispatchQueue.global(qos: .userInitiated).async {
             let provider = prepareBatchProvider()
             DispatchQueue.main.async {
-                self.batchProvider = provider
-                self.batchStatus = .ready
+                self.trainingBatchProvider = provider
+                self.trainingBatchStatus = .ready
+            }
+        }
+    }
+    
+    public func asyncPreparePredictionBatchProvider() {
+        func prepareBatchProvider() -> MLBatchProvider {
+            var featureProviders = [MLFeatureProvider]()
+            
+            var count = 0
+            errno = 0
+            let trainFilePath = Bundle.main.url(forResource: "mnist_test", withExtension: "csv")!
+            if freopen(trainFilePath.path, "r", stdin) == nil {
+                print("error opening file")
+            }
+            while let line = readLine()?.split(separator: ",") {
+                count += 1
+                DispatchQueue.main.async {
+                    self.predictionBatchStatus = .preparing(count: count)
+                }
+
+                let imageMultiArr = try! MLMultiArray(shape: [1, 28, 28], dataType: .float32)
+
+                for r in 0..<28 {
+                    for c in 0..<28 {
+                        let i = (r*28)+c
+                        imageMultiArr[i] = NSNumber(value: Float(String(line[i + 1]))! / Float(255.0))
+                    }
+                }
+
+                self.predictionLabels.append(Int(String(line[0]))!)
+                
+                let imageValue = MLFeatureValue(multiArray: imageMultiArr)
+
+                let dataPointFeatures: [String: MLFeatureValue] = ["image": imageValue]
+                
+                if let provider = try? MLDictionaryFeatureProvider(dictionary: dataPointFeatures) {
+                    featureProviders.append(provider)
+                }
+            }
+
+            return MLArrayBatchProvider(array: featureProviders)
+        }
+        
+        self.predictionLabels = [Int]()
+        self.predictionBatchStatus = .preparing(count: 0)
+        DispatchQueue.global(qos: .userInitiated).async {
+            let provider = prepareBatchProvider()
+            DispatchQueue.main.async {
+                self.predictionBatchProvider = provider
+                self.predictionBatchStatus = .ready
             }
         }
     }
@@ -226,9 +280,9 @@ public class MNIST : ObservableObject {
         let progressHandler = { (context: MLUpdateContext) in
             switch context.event {
             case .trainingBegin:
-                print("Training begin")
+                print("Training started")
                 DispatchQueue.main.async {
-                    self.modelStatus = "Training begin"
+                    self.modelStatus = "Training started"
                 }
 
             case .miniBatchEnd:
@@ -294,7 +348,7 @@ public class MNIST : ObservableObject {
 
 
         let updateTask = try! MLUpdateTask(forModelAt: coreMLCompiledModelUrl!,
-                                           trainingData: batchProvider!,
+                                           trainingData: trainingBatchProvider!,
                                            configuration: configuration,
                                            progressHandlers: handlers)
 
