@@ -243,7 +243,7 @@ public class MNIST : ObservableObject {
                 InnerProduct(name: "hidden1",
                              input: ["outFlatten1"],
                              output: ["outHidden1"],
-                             inputChannels: 1152,
+                             inputChannels: 800, //1152
                              outputChannels: 500,
                              updatable: true)
                 ReLu(name: "relu3",
