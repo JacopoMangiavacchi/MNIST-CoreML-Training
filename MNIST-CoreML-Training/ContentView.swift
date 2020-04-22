@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var mnist = MNIST()
-    @ObservedObject var lines = Lines()
+    @ObservedObject var drawData = DrawData()
     
     func isDataReady(for status: MNIST.BatchPreparationStatus) -> Bool {
         switch status {
@@ -102,8 +102,7 @@ struct ContentView: View {
                         Button(action: {}) {
                             Text("Clear")
                         }.onTapGesture {
-                            print("clear")
-                            self.lines.lines.removeAll()
+                            self.drawData.lines.removeAll()
                         }
                         Spacer()
                         Text("-")
@@ -111,13 +110,14 @@ struct ContentView: View {
                         Button(action: {}) {
                             Text("Detect")
                         }.onTapGesture {
-                            print("detect")
+                            let pb = self.drawData.view.getPixelBuffer()
+                            print(pb)
                         }
                     }
                 }
             }
             Draw()
-                .environmentObject(self.lines)
+                .environmentObject(self.drawData)
                 .frame(minWidth: 200, maxWidth: 200, minHeight: 200, maxHeight: 200)
                 .border(Color.blue, width: 1)
         }

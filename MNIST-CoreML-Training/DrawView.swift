@@ -22,7 +22,7 @@ class DrawView: UIView {
     var color = UIColor.white { didSet { setNeedsDisplay() } }
     
     // we will keep touches made by user in view in these as a record so we can draw them.
-    var lines: Lines!
+    var lines: DrawData!
     var lastPoint: CGPoint!
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -80,6 +80,26 @@ class DrawView: UIView {
         
         return context
     }
+    
+    func getPixelBuffer() -> CVPixelBuffer? {
+        let context = CIContext()
+        var pixelBuffer: CVPixelBuffer?
+        
+        let attrs = [kCVPixelBufferCGImageCompatibilityKey: kCFBooleanTrue,
+                     kCVPixelBufferCGBitmapContextCompatibilityKey: kCFBooleanTrue] as CFDictionary
+        CVPixelBufferCreate(kCFAllocatorDefault,
+                            28,
+                            28,
+                            kCVPixelFormatType_OneComponent8,
+                            attrs,
+                            &pixelBuffer)
+        
+        let cgImage = getViewContext()?.makeImage()
+        let ciImage = CIImage(cgImage: cgImage!)
+        context.render(ciImage, to: pixelBuffer!)
+        
+        return pixelBuffer
+    }
 }
 
 /**
@@ -97,13 +117,10 @@ class Line{
 struct Draw: UIViewRepresentable {
     typealias UIViewType = DrawView
     
-    @EnvironmentObject var lines: Lines
+    @EnvironmentObject var drawData: DrawData
 
     func makeUIView(context: Context) -> DrawView {
-        let view = DrawView()
-        view.lines = lines
-        view.backgroundColor = .black
-        return view
+        return drawData.view
     }
 
     func updateUIView(_ uiView: DrawView, context: UIViewRepresentableContext<Draw>) {
@@ -111,6 +128,13 @@ struct Draw: UIViewRepresentable {
     }
 }
 
-class Lines: ObservableObject {
+class DrawData: ObservableObject {
     @Published var lines = [Line]()
+    var view: DrawView
+    
+    init() {
+        self.view = DrawView()
+        self.view.lines = self
+        self.view.backgroundColor = .black
+    }
 }
