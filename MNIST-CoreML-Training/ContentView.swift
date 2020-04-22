@@ -10,6 +10,7 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var mnist = MNIST()
+    @ObservedObject var lines = Lines()
     
     func isDataReady(for status: MNIST.BatchPreparationStatus) -> Bool {
         switch status {
@@ -98,22 +99,27 @@ struct ContentView: View {
                 }
                 Section(header: Text("Test")) {
                     HStack {
-                        Button(action: {
-                        }) {
+                        Button(action: {}) {
                             Text("Clear")
+                        }.onTapGesture {
+                            print("clear")
+                            self.lines.lines.removeAll()
                         }
                         Spacer()
                         Text("-")
                         Spacer()
-                        Button(action: {
-                        }) {
+                        Button(action: {}) {
                             Text("Detect")
+                        }.onTapGesture {
+                            print("detect")
                         }
                     }
                 }
             }
             Draw()
+                .environmentObject(self.lines)
                 .frame(minWidth: 200, maxWidth: 200, minHeight: 200, maxHeight: 200)
+                .border(Color.blue, width: 1)
         }
     }
 }

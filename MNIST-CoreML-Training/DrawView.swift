@@ -8,6 +8,7 @@
 // Code from Apple's Metal-2 sample MPSCNNHelloWorld
 
 import UIKit
+import SwiftUI
 
 /**
  This class is used to handle the drawing in the DigitView so we can get user input digit,
@@ -21,7 +22,7 @@ class DrawView: UIView {
     var color = UIColor.white { didSet { setNeedsDisplay() } }
     
     // we will keep touches made by user in view in these as a record so we can draw them.
-    var lines: [Line] = []
+    var lines: Lines!
     var lastPoint: CGPoint!
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -31,7 +32,7 @@ class DrawView: UIView {
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         let newPoint = touches.first!.location(in: self)
         // keep all lines drawn by user as touch in record so we can draw them in view
-        lines.append(Line(start: lastPoint, end: newPoint))
+        lines.lines.append(Line(start: lastPoint, end: newPoint))
         lastPoint = newPoint
         // make a draw call
         setNeedsDisplay()
@@ -43,7 +44,7 @@ class DrawView: UIView {
         let drawPath = UIBezierPath()
         drawPath.lineCapStyle = .round
         
-        for line in lines{
+        for line in lines.lines {
             drawPath.move(to: line.start)
             drawPath.addLine(to: line.end)
         }
@@ -93,16 +94,23 @@ class Line{
     }
 }
 
-import SwiftUI
-
 struct Draw: UIViewRepresentable {
     typealias UIViewType = DrawView
+    
+    @EnvironmentObject var lines: Lines
 
     func makeUIView(context: Context) -> DrawView {
-        return DrawView()
+        let view = DrawView()
+        view.lines = lines
+        view.backgroundColor = .black
+        return view
     }
 
     func updateUIView(_ uiView: DrawView, context: UIViewRepresentableContext<Draw>) {
+        uiView.setNeedsDisplay()
     }
 }
 
+class Lines: ObservableObject {
+    @Published var lines = [Line]()
+}
