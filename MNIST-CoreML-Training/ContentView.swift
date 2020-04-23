@@ -11,6 +11,7 @@ import SwiftUI
 struct ContentView: View {
     @ObservedObject var mnist = MNIST()
     @ObservedObject var drawData = DrawData()
+    @State var prediction = "-"
     
     let splitRatio: CGFloat = 0.2445
     
@@ -105,17 +106,20 @@ struct ContentView: View {
                             Button(action: {}) {
                                 Text("Clear")
                             }.onTapGesture {
+                                self.prediction = "-"
                                 self.drawData.lines.removeAll()
                             }
                             Spacer()
-                            Text("-")
+                            Text(self.prediction)
                             Spacer()
                             Button(action: {}) {
-                                Text("Detect")
-                            }.onTapGesture {
-                                let pb = self.drawData.view.getImageData()
-                                print(pb)
+                                Text("Predict")
                             }
+                                .disabled(!self.mnist.modelTrained)
+                                .onTapGesture {
+                                    let data = self.drawData.view.getImageData()
+                                    self.prediction = "\(self.mnist.predict(data: data))"
+                                }
                         }
                     }
                 }.frame(width: geometry.size.width, height: geometry.size.height - (geometry.size.height * self.splitRatio))

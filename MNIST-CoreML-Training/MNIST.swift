@@ -379,5 +379,9 @@ public class MNIST : ObservableObject {
         print("Accuracy: \(accuracy)")
         self.accuracy = "Accuracy: \(accuracy)"
     }
+    
+    public func predict(data: [[Float]]) -> Int {
+        return 7
+    }
 }
 
