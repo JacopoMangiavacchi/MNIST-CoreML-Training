@@ -297,7 +297,7 @@ public class MNIST : ObservableObject {
             case .epochEnd:
                 let epochIndex = context.metrics[.epochIndex] as! Int
                 let trainLoss = context.metrics[.lossValue] as! Double
-                print("Epoch \(epochIndex) end with loss \(trainLoss)")
+                print("Epoch \(epochIndex + 1) end with loss \(trainLoss)")
                 DispatchQueue.main.async {
                     self.modelStatus = "Epoch \(epochIndex) end with loss \(trainLoss)"
                 }
@@ -378,6 +378,39 @@ public class MNIST : ObservableObject {
         
         print("Accuracy: \(accuracy)")
         self.accuracy = "Accuracy: \(accuracy)"
+    }
+    
+    public func predict(data: [[Float]]) -> Int {
+        let imageMultiArr = try! MLMultiArray(shape: [1, 28, 28], dataType: .float32)
+
+        for r in 0..<28 {
+            for c in 0..<28 {
+                let i = (r*28)+c
+                imageMultiArr[i] = NSNumber(value: data[r][c]) // already normalized
+            }
+        }
+
+        let imageValue = MLFeatureValue(multiArray: imageMultiArr)
+
+        let dataPointFeatures: [String: MLFeatureValue] = ["image": imageValue]
+
+        let provider = try! MLDictionaryFeatureProvider(dictionary: dataPointFeatures)
+
+        guard let prediction = try! retrainedModel?.prediction(from: provider) else { return -1 }
+
+        let oneHotPrediction = prediction.featureValue(for: "output")!
+
+        var predictedNumber = -1
+        var max: Float = -1.0
+        
+        for i in 0..<10 {
+            if oneHotPrediction.multiArrayValue![i].floatValue > max {
+                predictedNumber = i
+                max = oneHotPrediction.multiArrayValue![i].floatValue
+            }
+        }
+        
+        return predictedNumber
     }
 }
 
