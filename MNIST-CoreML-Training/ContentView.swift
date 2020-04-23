@@ -47,7 +47,7 @@ struct ContentView: View {
                             }.disabled(self.isDataPreparing(for: self.mnist.trainingBatchStatus))
                         }
                         HStack {
-                            Text("Prediction: \(self.mnist.predictionBatchStatus.description)")
+                            Text("Validation: \(self.mnist.predictionBatchStatus.description)")
                             if self.isDataReady(for: self.mnist.predictionBatchStatus) {
                                 Text(" \(self.mnist.predictionBatchProvider!.count) samples")
                             }
