@@ -110,7 +110,7 @@ struct ContentView: View {
                         Button(action: {}) {
                             Text("Detect")
                         }.onTapGesture {
-                            let pb = self.drawData.view.getPixelBuffer()
+                            let pb = self.drawData.view.getImageData()
                             print(pb)
                         }
                     }

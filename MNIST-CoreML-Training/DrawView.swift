@@ -81,30 +81,73 @@ class DrawView: UIView {
         return context
     }
     
-    func getPixelBuffer() -> CVPixelBuffer? {
-        let context = CIContext()
-        var pixelBuffer: CVPixelBuffer?
-        
-        let attrs = [kCVPixelBufferCGImageCompatibilityKey: kCFBooleanTrue,
-                     kCVPixelBufferCGBitmapContextCompatibilityKey: kCFBooleanTrue] as CFDictionary
-        CVPixelBufferCreate(kCFAllocatorDefault,
-                            28,
-                            28,
-                            kCVPixelFormatType_OneComponent8,
-                            attrs,
-                            &pixelBuffer)
-        
+    func getImageData() -> [[Float]] {
         let cgImage = getViewContext()?.makeImage()
-        let ciImage = CIImage(cgImage: cgImage!)
-        context.render(ciImage, to: pixelBuffer!)
+        let bitmap = Bitmap(img: cgImage!)
         
-        return pixelBuffer
+        var pixelArray: [[Float]] = Array(repeating: Array(repeating: 0.0, count: 28), count: 28)
+        for row in 0..<28{
+            for col in 0..<28 {
+                pixelArray[row][col] = Float(bitmap.color_at(x: col, y: row).0) / 255.0
+            }
+        }
+
+        return pixelArray
     }
 }
 
-/**
- 2 points can give a line and this class is just for that purpose, it keeps a record of a line
- */
+class Bitmap {
+    let width: Int
+    let height: Int
+    let context: CGContext
+
+    init(img: CGImage) {
+        // Set image width, height
+        width = img.width
+        height = img.height
+
+        // Declare the number of bytes per row. Each pixel in the bitmap in this
+        // example is represented by 4 bytes; 8 bits each of red, green, blue, and
+        // alpha.
+        let bitmapBytesPerRow = width * 4
+
+        // Use the generic RGB color space.
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+
+        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedFirst.rawValue)
+
+        // Create the bitmap context. We want pre-multiplied ARGB, 8-bits
+        // per component. Regardless of what the source image format is
+        // (CMYK, Grayscale, and so on) it will be converted over to the format
+        // specified here by CGBitmapContextCreate.
+        context = CGContext(data: nil, width: width, height: height, bitsPerComponent: 8, bytesPerRow: bitmapBytesPerRow, space: colorSpace, bitmapInfo: bitmapInfo.rawValue)!
+
+        // draw the image onto the context
+        let rect = CGRect(x: 0, y: 0, width: width, height: height)
+        context.draw(img, in: rect)
+    }
+
+    func color_at(x: Int, y: Int) -> (Int, Int, Int, Int) {
+        assert(0<=x && x<width)
+        assert(0<=y && y<height)
+        
+        let offset = 4 * (y * width + x)
+        var data = context.data!.advanced(by: offset)
+        
+        let alpha = data.load(as: UInt8.self)
+        data = data.advanced(by: 1)
+        let red = data.load(as: UInt8.self)
+        data = data.advanced(by: 1)
+        let green = data.load(as: UInt8.self)
+        data = data.advanced(by: 1)
+        let blue = data.load(as: UInt8.self)
+        data = data.advanced(by: 1)
+
+        let color = (Int(red), Int(green), Int(blue), Int(alpha))
+        return color
+    }
+}
+
 class Line{
     var start, end: CGPoint
     
