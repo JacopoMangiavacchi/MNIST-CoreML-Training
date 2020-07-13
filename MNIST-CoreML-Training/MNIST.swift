@@ -223,10 +223,10 @@ public class MNIST : ObservableObject {
         trainingGraph.addInputs(["image" : inputTensor],
                                 lossLabels: ["label" : lossLabelTensor])
         
-        let outputTensor = MLCTensor(descriptor: MLCTensorDescriptor(shape: [batchSize, numberOfClasses], dataType: .float32)!,
-                                     randomInitializerType: .glorotUniform)
-
-        trainingGraph.addOutputs(["output" : outputTensor])
+//        let outputTensor = MLCTensor(descriptor: MLCTensorDescriptor(shape: [batchSize, numberOfClasses], dataType: .float32)!,
+//                                     randomInitializerType: .glorotUniform)
+//
+//        trainingGraph.addOutputs(["output" : outputTensor])
         
         trainingGraph.compile(options: [], device: device)
         
