@@ -324,6 +324,7 @@
 				DEVELOPMENT_TEAM = SV6W498A95;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "MNIST-CoreML-Training/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -346,6 +347,7 @@
 				DEVELOPMENT_TEAM = SV6W498A95;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "MNIST-CoreML-Training/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
