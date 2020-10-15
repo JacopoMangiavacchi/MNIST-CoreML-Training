@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A04BD7B12538B04700A91604 /* mnist_train.csv.lzfse in Resources */ = {isa = PBXBuildFile; fileRef = A04BD7AF2538B04700A91604 /* mnist_train.csv.lzfse */; };
+		A04BD7B22538B04700A91604 /* mnist_test.csv.lzfse in Resources */ = {isa = PBXBuildFile; fileRef = A04BD7B02538B04700A91604 /* mnist_test.csv.lzfse */; };
 		EA0B38C824339D2F0047E786 /* MNIST.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0B38C724339D2F0047E786 /* MNIST.swift */; };
-		EA0B38CB24339DA40047E786 /* mnist_train.csv in Resources */ = {isa = PBXBuildFile; fileRef = EA0B38CA24339DA40047E786 /* mnist_train.csv */; };
 		EA0B38CE2433A50B0047E786 /* SwiftCoreMLTools in Frameworks */ = {isa = PBXBuildFile; productRef = EA0B38CD2433A50B0047E786 /* SwiftCoreMLTools */; };
 		EA5B28A6244FD7EB0081BBFF /* DrawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5B28A5244FD7EB0081BBFF /* DrawView.swift */; };
-		EAB19B07244B583200763A47 /* mnist_test.csv in Resources */ = {isa = PBXBuildFile; fileRef = EAB19B06244B583200763A47 /* mnist_test.csv */; };
 		EACC9DF824318F740067E304 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACC9DF724318F740067E304 /* AppDelegate.swift */; };
 		EACC9DFA24318F740067E304 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACC9DF924318F740067E304 /* SceneDelegate.swift */; };
 		EACC9DFC24318F740067E304 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACC9DFB24318F740067E304 /* ContentView.swift */; };
@@ -21,10 +21,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A04BD7AF2538B04700A91604 /* mnist_train.csv.lzfse */ = {isa = PBXFileReference; lastKnownFileType = file; path = mnist_train.csv.lzfse; sourceTree = "<group>"; };
+		A04BD7B02538B04700A91604 /* mnist_test.csv.lzfse */ = {isa = PBXFileReference; lastKnownFileType = file; path = mnist_test.csv.lzfse; sourceTree = "<group>"; };
 		EA0B38C724339D2F0047E786 /* MNIST.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MNIST.swift; sourceTree = "<group>"; };
-		EA0B38CA24339DA40047E786 /* mnist_train.csv */ = {isa = PBXFileReference; lastKnownFileType = text; name = mnist_train.csv; path = Data/mnist_train.csv; sourceTree = SOURCE_ROOT; };
 		EA5B28A5244FD7EB0081BBFF /* DrawView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawView.swift; sourceTree = "<group>"; };
-		EAB19B06244B583200763A47 /* mnist_test.csv */ = {isa = PBXFileReference; lastKnownFileType = text; name = mnist_test.csv; path = Data/mnist_test.csv; sourceTree = SOURCE_ROOT; };
 		EACC9DF424318F740067E304 /* MNIST-CoreML-Training.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MNIST-CoreML-Training.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EACC9DF724318F740067E304 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EACC9DF924318F740067E304 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -48,14 +48,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		EA0B38C924339D930047E786 /* Data */ = {
+		A04BD7AE2538B04700A91604 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				EAB19B06244B583200763A47 /* mnist_test.csv */,
-				EA0B38CA24339DA40047E786 /* mnist_train.csv */,
+				A04BD7AF2538B04700A91604 /* mnist_train.csv.lzfse */,
+				A04BD7B02538B04700A91604 /* mnist_test.csv.lzfse */,
 			);
-			name = Data;
-			sourceTree = "<group>";
+			path = Data;
+			sourceTree = SOURCE_ROOT;
 		};
 		EACC9DEB24318F740067E304 = {
 			isa = PBXGroup;
@@ -76,7 +76,7 @@
 		EACC9DF624318F740067E304 /* MNIST-CoreML-Training */ = {
 			isa = PBXGroup;
 			children = (
-				EA0B38C924339D930047E786 /* Data */,
+				A04BD7AE2538B04700A91604 /* Data */,
 				EA0B38C724339D2F0047E786 /* MNIST.swift */,
 				EACC9DFB24318F740067E304 /* ContentView.swift */,
 				EA5B28A5244FD7EB0081BBFF /* DrawView.swift */,
@@ -163,11 +163,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A04BD7B22538B04700A91604 /* mnist_test.csv.lzfse in Resources */,
 				EACC9E0424318F770067E304 /* LaunchScreen.storyboard in Resources */,
-				EA0B38CB24339DA40047E786 /* mnist_train.csv in Resources */,
+				A04BD7B12538B04700A91604 /* mnist_train.csv.lzfse in Resources */,
 				EACC9E0124318F770067E304 /* Preview Assets.xcassets in Resources */,
 				EACC9DFE24318F770067E304 /* Assets.xcassets in Resources */,
-				EAB19B07244B583200763A47 /* mnist_test.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,12 +319,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "MNIST-CoreML-Training/MNIST-CoreML-Training.entitlements";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"MNIST-CoreML-Training/Preview Content\"";
-				DEVELOPMENT_TEAM = SV6W498A95;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "MNIST-CoreML-Training/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -342,12 +343,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "MNIST-CoreML-Training/MNIST-CoreML-Training.entitlements";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"MNIST-CoreML-Training/Preview Content\"";
-				DEVELOPMENT_TEAM = SV6W498A95;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "MNIST-CoreML-Training/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
