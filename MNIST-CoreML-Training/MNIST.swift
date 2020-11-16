@@ -9,6 +9,7 @@ import Foundation
 import CoreML
 import SwiftCoreMLTools
 import UIKit
+import Compression
 
 public class MNIST : ObservableObject {
     public enum BatchPreparationStatus {
@@ -53,14 +54,74 @@ public class MNIST : ObservableObject {
         predictionLabels = [Int]()
     }
     
+    /// Extract file
+    ///
+    /// - parameter sourceURL:URL of source file
+    /// - parameter destinationFilename: Choosen destination filename
+    ///
+    /// - returns: Temporary path of extracted file
+    fileprivate func extractFile(from sourceURL: URL, destinationFilename: String) -> String {
+        let destinationURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(destinationFilename)
+        
+        let sourceFileHandle = try! FileHandle(forReadingFrom: sourceURL)
+        
+        
+        FileManager.default.createFile(atPath: destinationURL.path,
+                                       contents: nil,
+                                       attributes: nil)
+        
+        let destinationFileHandle = try! FileHandle(forWritingTo: destinationURL)
+        let bufferSize = 65536
+        
+        let filter = try! OutputFilter(.decompress, using: .lzfse, bufferCapacity: 655360) { data in
+            if let data = data {
+                destinationFileHandle.write(data)
+            }
+        }
+        
+        while true {
+            let data = sourceFileHandle.readData(ofLength: bufferSize)
+            
+            try! filter.write(data)
+            if data.count < bufferSize {
+                break
+            }
+        }
+        
+        sourceFileHandle.closeFile()
+        destinationFileHandle.closeFile()
+
+        return destinationURL.path
+    }
+    
+    /// Extract train file
+    ///
+    /// - returns: Temporary path of extracted file
+    fileprivate func extractTrainFile() -> String {
+        let sourceURL = Bundle.main.url(forResource: "mnist_train", withExtension: "csv.lzfse")!
+        
+        return extractFile(from: sourceURL, destinationFilename: "mnist_train.csv")
+    }
+    
+    /// Extract test file
+    ///
+    /// - returns: Temporary path of extracted file
+    fileprivate func extractTestFile() -> String {
+        let sourceURL = Bundle.main.url(forResource: "mnist_test", withExtension: "csv.lzfse")!
+        
+        return extractFile(from: sourceURL, destinationFilename: "mnist_test.csv")
+    }
+    
     public func asyncPrepareTrainBatchProvider() {
+        
         func prepareBatchProvider() -> MLBatchProvider {
             var featureProviders = [MLFeatureProvider]()
             
             var count = 0
             errno = 0
-            let trainFilePath = Bundle.main.url(forResource: "mnist_train", withExtension: "csv")!
-            if freopen(trainFilePath.path, "r", stdin) == nil {
+            
+            let trainFilePath = extractTrainFile()
+            if freopen(trainFilePath, "r", stdin) == nil {
                 print("error opening file")
             }
             while let line = readLine()?.split(separator: ",") {
@@ -111,8 +172,8 @@ public class MNIST : ObservableObject {
             
             var count = 0
             errno = 0
-            let trainFilePath = Bundle.main.url(forResource: "mnist_test", withExtension: "csv")!
-            if freopen(trainFilePath.path, "r", stdin) == nil {
+            let testFilePath = extractTestFile()
+            if freopen(testFilePath, "r", stdin) == nil {
                 print("error opening file")
             }
             while let line = readLine()?.split(separator: ",") {
