@@ -39,6 +39,7 @@ public class MNIST : ObservableObject {
     @Published public var modelStatus = "Train model"
     @Published public var accuracy = "Accuracy: n/a"
     @Published public var epoch: Int = 5
+    @Published public var hiddenNeurons: UInt = 500
 
     var coreMLModelUrl: URL
     var coreMLCompiledModelUrl: URL?
@@ -57,7 +58,7 @@ public class MNIST : ObservableObject {
     /// Extract file
     ///
     /// - parameter sourceURL:URL of source file
-    /// - parameter destinationFilename: Choosen destination filename
+    /// - parameter destinationFilename: Chosen destination filename
     ///
     /// - returns: Temporary path of extracted file
     fileprivate func extractFile(from sourceURL: URL, destinationFilename: String) -> String {
@@ -216,10 +217,65 @@ public class MNIST : ObservableObject {
         }
     }
     
+    func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let documentsDirectory = paths[0]
+        return documentsDirectory
+    }
+    
+    fileprivate func clearData() {
+        let trainFile = String(NSTemporaryDirectory()) + "mnist_train.csv"
+        let testFile = String(NSTemporaryDirectory()) + "mnist_test.csv"
+        let fileHandler = FileManager.default
+        do {
+            try fileHandler.removeItem(atPath: trainFile)
+        } catch {
+            print("Error deleting file: \(error)")
+        }
+        do {
+            try fileHandler.removeItem(atPath: testFile)
+        } catch {
+            print("Error deleting file: \(error)")
+        }
+    }
+    
+    public func removeMNISTData() {
+        clearData()
+        print("MNIST Data Cleaned.")
+    }
+    
+    public func getTrainFileSize() -> Int {
+        let filePath: String = NSTemporaryDirectory() + "mnist_train.csv"
+        var fileSize: Int = 0
+        do {
+            let attr: NSDictionary? = try FileManager.default.attributesOfItem(atPath: filePath) as NSDictionary
+            if let _attr = attr {
+                fileSize = Int(_attr.fileSize())
+            }
+        } catch {
+            print("Error: \(error)")
+        }
+        return Int(fileSize)
+    }
+    
+    public func getValidFileSize() -> Int {
+        let filePath: String = NSTemporaryDirectory() + "mnist_test.csv"
+        var fileSize: Int = 0
+        do {
+            let attr: NSDictionary? = try FileManager.default.attributesOfItem(atPath: filePath) as NSDictionary
+            if let _attr = attr {
+                fileSize = Int(_attr.fileSize())
+            }
+        } catch {
+            print("Error: \(error)")
+        }
+        return Int(fileSize)
+    }
+    
     public func prepareModel() {
         let coremlModel = Model(version: 4,
-                                shortDescription: "MNIST-Trainable",
-                                author: "Jacopo Mangiavacchi",
+                                shortDescription: "MNIST Model for On-Device Training!",
+                                author: "William Hahn",
                                 license: "MIT",
                                 userDefined: ["SwiftCoremltoolsVersion" : "0.0.12"]) {
             Input(name: "image", shape: [1, 28, 28])
@@ -304,7 +360,7 @@ public class MNIST : ObservableObject {
                              input: ["outFlatten1"],
                              output: ["outHidden1"],
                              inputChannels: 1152,
-                             outputChannels: 500,
+                             outputChannels: hiddenNeurons,
                              updatable: true)
                 ReLu(name: "relu3",
                      input: ["outHidden1"],
@@ -312,7 +368,7 @@ public class MNIST : ObservableObject {
                 InnerProduct(name: "hidden2",
                              input: ["outRelu3"],
                              output: ["outHidden2"],
-                             inputChannels: 500,
+                             inputChannels: hiddenNeurons,
                              outputChannels: 10,
                              updatable: true)
                 Softmax(name: "softmax",
@@ -340,7 +396,7 @@ public class MNIST : ObservableObject {
         
         let configuration = MLModelConfiguration()
         configuration.computeUnits = .all
-        //configuration.parameters = [.epochs : 100]
+        // configuration.parameters = [.seed : 1234]
         let progressHandler = { (context: MLUpdateContext) in
             switch context.event {
             case .trainingBegin:
@@ -359,7 +415,7 @@ public class MNIST : ObservableObject {
                 let trainLoss = context.metrics[.lossValue] as! Double
                 print("Epoch \(epochIndex + 1) end with loss \(trainLoss)")
                 DispatchQueue.main.async {
-                    self.modelStatus = "Epoch \(epochIndex) end with loss \(trainLoss)"
+                    self.modelStatus = "Epoch \(epochIndex + 1) end with loss \(trainLoss)"
                 }
 
             default:
@@ -373,6 +429,7 @@ public class MNIST : ObservableObject {
 //        } catch {
 //            print(error)
 //        }
+            
         }
 
         let completionHandler = { (context: MLUpdateContext) in

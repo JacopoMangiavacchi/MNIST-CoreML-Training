@@ -12,17 +12,18 @@ struct ContentView: View {
     @ObservedObject var mnist = MNIST()
     @ObservedObject var drawData = DrawData()
     @State var prediction = "-"
-    
+  
     let splitRatio: CGFloat = 0.2445
+//  original: let splitRatio: CGFloat = 0.2445
     
-    func isDataReady(for status: MNIST.BatchPreparationStatus) -> Bool {
+    public func isDataReady(for status: MNIST.BatchPreparationStatus) -> Bool {
         switch status {
         case .ready: return true
         default: return false
         }
     }
 
-    func isDataPreparing(for status: MNIST.BatchPreparationStatus) -> Bool {
+    public func isDataPreparing(for status: MNIST.BatchPreparationStatus) -> Bool {
         switch status {
         case .preparing: return true
         default: return false
@@ -34,6 +35,31 @@ struct ContentView: View {
             VStack(spacing: 0) {
                 Form {
                     Section(header: Text("Dataset")) {
+                        HStack {
+                            Text("Training Size")
+                            Spacer()
+                            if self.isDataReady(for: self.mnist.trainingBatchStatus) {
+                                Text("\(String(self.mnist.getTrainFileSize()/1000000) + "MB")")
+                            } else {
+                                Text("n/a")
+                            }
+                        }
+                        HStack {
+                            Text("Validation Size")
+                            Spacer()
+                            if self.isDataReady(for: self.mnist.predictionBatchStatus) {
+                                Text("\(String(self.mnist.getValidFileSize()/1000000) + "MB")")
+                            } else {
+                                Text("n/a")
+                            }
+                        }
+                        HStack {
+                            Text("Remove MNIST CSV Files")
+                            Spacer()
+                            Button(action: {self.mnist.removeMNISTData()}) {
+                                Text("Cleanup")
+                            }
+                        }
                         HStack {
                             Text("Training: \(self.mnist.trainingBatchStatus.description)")
                             if self.isDataReady(for: self.mnist.trainingBatchStatus) {
@@ -60,7 +86,10 @@ struct ContentView: View {
                         }
                     }
                     Section(header: Text("Training")) {
-                        Stepper(value: self.$mnist.epoch, in: 1...10, label: { Text("Epoch:  \(self.mnist.epoch)")})
+                        Stepper(value: self.$mnist.epoch, in: 1...30, label: { Text("Epoch:  \(self.mnist.epoch)")})
+                        Stepper(value: self.$mnist.hiddenNeurons, in: 50...750, step: 25, label: {
+                            Text("Neurons: \(self.mnist.hiddenNeurons)")
+                        })
                         HStack {
                             Text("Prepare model")
                             Spacer()

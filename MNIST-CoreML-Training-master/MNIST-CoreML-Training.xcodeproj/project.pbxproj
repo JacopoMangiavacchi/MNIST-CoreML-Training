@@ -1,0 +1,410 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 52;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A04BD7B12538B04700A91604 /* mnist_train.csv.lzfse in Resources */ = {isa = PBXBuildFile; fileRef = A04BD7AF2538B04700A91604 /* mnist_train.csv.lzfse */; };
+		A04BD7B22538B04700A91604 /* mnist_test.csv.lzfse in Resources */ = {isa = PBXBuildFile; fileRef = A04BD7B02538B04700A91604 /* mnist_test.csv.lzfse */; };
+		D1E46FC725F56CFD00DEA660 /* SwiftCoreMLTools in Frameworks */ = {isa = PBXBuildFile; productRef = D1E46FC625F56CFD00DEA660 /* SwiftCoreMLTools */; };
+		EA0B38C824339D2F0047E786 /* MNIST.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0B38C724339D2F0047E786 /* MNIST.swift */; };
+		EA5B28A6244FD7EB0081BBFF /* DrawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5B28A5244FD7EB0081BBFF /* DrawView.swift */; };
+		EACC9DF824318F740067E304 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACC9DF724318F740067E304 /* AppDelegate.swift */; };
+		EACC9DFA24318F740067E304 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACC9DF924318F740067E304 /* SceneDelegate.swift */; };
+		EACC9DFC24318F740067E304 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACC9DFB24318F740067E304 /* ContentView.swift */; };
+		EACC9DFE24318F770067E304 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EACC9DFD24318F770067E304 /* Assets.xcassets */; };
+		EACC9E0124318F770067E304 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EACC9E0024318F770067E304 /* Preview Assets.xcassets */; };
+		EACC9E0424318F770067E304 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EACC9E0224318F770067E304 /* LaunchScreen.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		A04BD7AF2538B04700A91604 /* mnist_train.csv.lzfse */ = {isa = PBXFileReference; lastKnownFileType = file; path = mnist_train.csv.lzfse; sourceTree = "<group>"; };
+		A04BD7B02538B04700A91604 /* mnist_test.csv.lzfse */ = {isa = PBXFileReference; lastKnownFileType = file; path = mnist_test.csv.lzfse; sourceTree = "<group>"; };
+		EA0B38C724339D2F0047E786 /* MNIST.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MNIST.swift; sourceTree = "<group>"; };
+		EA5B28A5244FD7EB0081BBFF /* DrawView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawView.swift; sourceTree = "<group>"; };
+		EACC9DF424318F740067E304 /* MNIST-CoreML-Training.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MNIST-CoreML-Training.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EACC9DF724318F740067E304 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		EACC9DF924318F740067E304 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		EACC9DFB24318F740067E304 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		EACC9DFD24318F770067E304 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		EACC9E0024318F770067E304 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		EACC9E0324318F770067E304 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		EACC9E0524318F770067E304 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EACC9E1024318FC10067E304 /* MNIST-CoreML-Training.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "MNIST-CoreML-Training.entitlements"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EACC9DF124318F740067E304 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D1E46FC725F56CFD00DEA660 /* SwiftCoreMLTools in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A04BD7AE2538B04700A91604 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				A04BD7AF2538B04700A91604 /* mnist_train.csv.lzfse */,
+				A04BD7B02538B04700A91604 /* mnist_test.csv.lzfse */,
+			);
+			path = Data;
+			sourceTree = SOURCE_ROOT;
+		};
+		EACC9DEB24318F740067E304 = {
+			isa = PBXGroup;
+			children = (
+				EACC9DF624318F740067E304 /* MNIST-CoreML-Training */,
+				EACC9DF524318F740067E304 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EACC9DF524318F740067E304 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EACC9DF424318F740067E304 /* MNIST-CoreML-Training.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EACC9DF624318F740067E304 /* MNIST-CoreML-Training */ = {
+			isa = PBXGroup;
+			children = (
+				A04BD7AE2538B04700A91604 /* Data */,
+				EA0B38C724339D2F0047E786 /* MNIST.swift */,
+				EACC9DFB24318F740067E304 /* ContentView.swift */,
+				EA5B28A5244FD7EB0081BBFF /* DrawView.swift */,
+				EACC9E1024318FC10067E304 /* MNIST-CoreML-Training.entitlements */,
+				EACC9DF724318F740067E304 /* AppDelegate.swift */,
+				EACC9DF924318F740067E304 /* SceneDelegate.swift */,
+				EACC9DFD24318F770067E304 /* Assets.xcassets */,
+				EACC9E0224318F770067E304 /* LaunchScreen.storyboard */,
+				EACC9E0524318F770067E304 /* Info.plist */,
+				EACC9DFF24318F770067E304 /* Preview Content */,
+			);
+			path = "MNIST-CoreML-Training";
+			sourceTree = "<group>";
+		};
+		EACC9DFF24318F770067E304 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				EACC9E0024318F770067E304 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EACC9DF324318F740067E304 /* MNIST-CoreML-Training */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EACC9E0824318F770067E304 /* Build configuration list for PBXNativeTarget "MNIST-CoreML-Training" */;
+			buildPhases = (
+				EACC9DF024318F740067E304 /* Sources */,
+				EACC9DF124318F740067E304 /* Frameworks */,
+				EACC9DF224318F740067E304 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "MNIST-CoreML-Training";
+			packageProductDependencies = (
+				D1E46FC625F56CFD00DEA660 /* SwiftCoreMLTools */,
+			);
+			productName = "MNIST-CoreML-Training";
+			productReference = EACC9DF424318F740067E304 /* MNIST-CoreML-Training.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EACC9DEC24318F740067E304 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1140;
+				LastUpgradeCheck = 1220;
+				ORGANIZATIONNAME = "Jacopo Mangiavacchi";
+				TargetAttributes = {
+					EACC9DF324318F740067E304 = {
+						CreatedOnToolsVersion = 11.4;
+					};
+				};
+			};
+			buildConfigurationList = EACC9DEF24318F740067E304 /* Build configuration list for PBXProject "MNIST-CoreML-Training" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = EACC9DEB24318F740067E304;
+			packageReferences = (
+				D1E46FC525F56CFD00DEA660 /* XCRemoteSwiftPackageReference "SwiftCoreMLTools" */,
+			);
+			productRefGroup = EACC9DF524318F740067E304 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EACC9DF324318F740067E304 /* MNIST-CoreML-Training */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EACC9DF224318F740067E304 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A04BD7B22538B04700A91604 /* mnist_test.csv.lzfse in Resources */,
+				EACC9E0424318F770067E304 /* LaunchScreen.storyboard in Resources */,
+				A04BD7B12538B04700A91604 /* mnist_train.csv.lzfse in Resources */,
+				EACC9E0124318F770067E304 /* Preview Assets.xcassets in Resources */,
+				EACC9DFE24318F770067E304 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EACC9DF024318F740067E304 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EACC9DF824318F740067E304 /* AppDelegate.swift in Sources */,
+				EA5B28A6244FD7EB0081BBFF /* DrawView.swift in Sources */,
+				EA0B38C824339D2F0047E786 /* MNIST.swift in Sources */,
+				EACC9DFA24318F740067E304 /* SceneDelegate.swift in Sources */,
+				EACC9DFC24318F740067E304 /* ContentView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		EACC9E0224318F770067E304 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EACC9E0324318F770067E304 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		EACC9E0624318F770067E304 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		EACC9E0724318F770067E304 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		EACC9E0924318F770067E304 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "MNIST-CoreML-Training/MNIST-CoreML-Training.entitlements";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"MNIST-CoreML-Training/Preview Content\"";
+				DEVELOPMENT_TEAM = 2NY65GHMAY;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "MNIST-CoreML-Training/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.willh.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		EACC9E0A24318F770067E304 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "MNIST-CoreML-Training/MNIST-CoreML-Training.entitlements";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"MNIST-CoreML-Training/Preview Content\"";
+				DEVELOPMENT_TEAM = 2NY65GHMAY;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "MNIST-CoreML-Training/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.willh.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EACC9DEF24318F740067E304 /* Build configuration list for PBXProject "MNIST-CoreML-Training" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EACC9E0624318F770067E304 /* Debug */,
+				EACC9E0724318F770067E304 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EACC9E0824318F770067E304 /* Build configuration list for PBXNativeTarget "MNIST-CoreML-Training" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EACC9E0924318F770067E304 /* Debug */,
+				EACC9E0A24318F770067E304 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D1E46FC525F56CFD00DEA660 /* XCRemoteSwiftPackageReference "SwiftCoreMLTools" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/wsfhahn/SwiftCoreMLTools";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.12;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D1E46FC625F56CFD00DEA660 /* SwiftCoreMLTools */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D1E46FC525F56CFD00DEA660 /* XCRemoteSwiftPackageReference "SwiftCoreMLTools" */;
+			productName = SwiftCoreMLTools;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = EACC9DEC24318F740067E304 /* Project object */;
+}
