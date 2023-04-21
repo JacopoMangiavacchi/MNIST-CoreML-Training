@@ -4,10 +4,6 @@ CoreML + SwiftUI demo App to demonstrate the potentiality of the **SwiftCoreMLTo
 
 ![The App](images/demo.png)
 
-## Models architecture
-
-![The App](images/MNIST_CoreML_Graph.png)
-
 ## Dataset
 
 The MNIST dataset (Creator: Yann LeCun, Corinna Cortes) of handwritten digits, available from this page [MNIST dataset](http://yann.lecun.com/exdb/mnist/), has a training set of 60,000 examples, and a test set of 10,000 examples. It is a subset of a larger set available from NIST. The digits have been size-normalized and centered in a fixed-size image. 
