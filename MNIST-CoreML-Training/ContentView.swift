@@ -127,8 +127,9 @@ struct ContentView: View {
                                 .stroke(Color.blue, lineWidth:5))
                 }
             }
-            .navigationTitle("MNIST Demo")
+            .navigationTitle("MNIST CoreML")
         }
+        .navigationViewStyle(.stack)
     }
 }
 
