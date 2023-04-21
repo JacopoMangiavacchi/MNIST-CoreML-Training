@@ -28,9 +28,9 @@ public class MNIST : ObservableObject {
             case .notPrepared:
                 return "Not prepared"
             case .preparing(let count):
-                return "Extracted samples: \(count)"
+                return "Extracted \(count)"
             case .ready:
-                return "Ready"
+                return ""
             }
         }
     }
