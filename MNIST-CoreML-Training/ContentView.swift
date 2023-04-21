@@ -60,24 +60,16 @@ struct ContentView: View {
                         }
                     }
                     Section(header: Text("Training")) {
-                        Stepper(value: self.$mnist.epoch, in: 1...10, label: { Text("Epoch:  \(self.mnist.epoch)")})
+                        Stepper(value: self.$mnist.epoch, in: 1...10, label: { Text("Training epochs:  \(self.mnist.epoch)")})
                         HStack {
-                            Text("Prepare model")
+                            Text("Build model")
                             Spacer()
                             Button(action: {
                                 self.mnist.prepareModel()
-                            }) {
-                                Text("Start")
-                            }.disabled(!self.isDataReady(for: self.mnist.trainingBatchStatus))
-                        }
-                        HStack {
-                            Text("Compile model")
-                            Spacer()
-                            Button(action: {
                                 self.mnist.compileModel()
                             }) {
                                 Text("Start")
-                            }.disabled(!self.mnist.modelPrepared)
+                            }.disabled(!self.isDataReady(for: self.mnist.trainingBatchStatus))
                         }
                         HStack {
                             Text(self.mnist.modelStatus)
@@ -91,7 +83,7 @@ struct ContentView: View {
                     }
                     Section(header: Text("Validation")) {
                         HStack {
-                            Text("Predict Test data")
+                            Text("Compute accuracy")
                             Spacer()
                             Button(action: {
                                 self.mnist.testModel()
@@ -124,10 +116,12 @@ struct ContentView: View {
                     }
                 }.frame(width: geometry.size.width, height: geometry.size.height - (geometry.size.height * self.splitRatio))
                 
+                Spacer(minLength: 15)
                 Draw()
                     .environmentObject(self.drawData)
                     .frame(width: geometry.size.height * self.splitRatio, height: geometry.size.height * self.splitRatio)
                     .border(Color.blue, width: 1)
+                    .cornerRadius(25.0)
             }
         }
     }
