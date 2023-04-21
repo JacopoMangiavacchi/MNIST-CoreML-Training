@@ -324,7 +324,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"MNIST-CoreML-Training/Preview Content\"";
-				DEVELOPMENT_TEAM = SV6W498A95;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "MNIST-CoreML-Training/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
@@ -332,7 +332,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.jacopomangiavacchi.MNIST-CoreML-Training";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mnist.training;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
@@ -348,7 +348,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"MNIST-CoreML-Training/Preview Content\"";
-				DEVELOPMENT_TEAM = SV6W498A95;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "MNIST-CoreML-Training/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
@@ -356,7 +356,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.jacopomangiavacchi.MNIST-CoreML-Training";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mnist.training;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
