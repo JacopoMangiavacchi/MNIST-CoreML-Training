@@ -2,7 +2,7 @@
 
 CoreML + SwiftUI demo App to demonstrate the potentiality of the **SwiftCoreMLTools** library (https://github.com/JacopoMangiavacchi/SwiftCoreMLTools) to fully create and train on iOS devices a Convolutional Neural Network for the MNIST dataset.
 
-![The App](images/MNIST-CoreML.png)
+![The App](images/demo.png)
 
 ## Models architecture
 
