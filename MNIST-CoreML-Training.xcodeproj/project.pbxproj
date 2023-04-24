@@ -321,18 +321,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "MNIST-CoreML-Training/MNIST-CoreML-Training.entitlements";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"MNIST-CoreML-Training/Preview Content\"";
-				DEVELOPMENT_TEAM = SV6W498A95;
+				DEVELOPMENT_TEAM = 2NY65GHMAY;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "MNIST-CoreML-Training/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.jacopomangiavacchi.MNIST-CoreML-Training";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mnist.training;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
@@ -345,18 +345,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "MNIST-CoreML-Training/MNIST-CoreML-Training.entitlements";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"MNIST-CoreML-Training/Preview Content\"";
-				DEVELOPMENT_TEAM = SV6W498A95;
+				DEVELOPMENT_TEAM = 2NY65GHMAY;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "MNIST-CoreML-Training/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.jacopomangiavacchi.MNIST-CoreML-Training";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mnist.training;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;

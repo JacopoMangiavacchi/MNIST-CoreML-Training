@@ -11,6 +11,12 @@ import SwiftCoreMLTools
 import UIKit
 import Compression
 
+extension Double {
+    func truncate(digits: Int) -> Double {
+        return Double(floor(pow(10.0, Double(digits)) * self)/pow(10.0, Double(digits)))
+    }
+}
+
 public class MNIST : ObservableObject {
     public enum BatchPreparationStatus {
         case notPrepared
@@ -20,11 +26,11 @@ public class MNIST : ObservableObject {
         var description: String {
             switch self {
             case .notPrepared:
-                return "Not Prepared"
+                return "Not prepared"
             case .preparing(let count):
-                return "Preparing \(count)"
+                return "Extracted \(count)"
             case .ready:
-                return "Ready"
+                return ""
             }
         }
     }
@@ -344,9 +350,9 @@ public class MNIST : ObservableObject {
         let progressHandler = { (context: MLUpdateContext) in
             switch context.event {
             case .trainingBegin:
-                print("Training started..")
+                print("Training started")
                 DispatchQueue.main.async {
-                    self.modelStatus = "Training started.."
+                    self.modelStatus = "Training started"
                 }
 
             case .miniBatchEnd:
@@ -357,9 +363,9 @@ public class MNIST : ObservableObject {
             case .epochEnd:
                 let epochIndex = context.metrics[.epochIndex] as! Int
                 let trainLoss = context.metrics[.lossValue] as! Double
-                print("Epoch \(epochIndex + 1) end with loss \(trainLoss)")
+                print("Epoch \(epochIndex + 1) end with loss \(trainLoss.truncate(digits: 3))")
                 DispatchQueue.main.async {
-                    self.modelStatus = "Epoch \(epochIndex) end with loss \(trainLoss)"
+                    self.modelStatus = "Epoch \(epochIndex + 1) end with loss \(trainLoss.truncate(digits: 3))"
                 }
 
             default:
@@ -393,7 +399,7 @@ public class MNIST : ObservableObject {
             let trainLoss = context.metrics[.lossValue] as! Double
             print("Final loss: \(trainLoss)")
             DispatchQueue.main.async {
-                self.modelStatus = "Training completed with loss: \(trainLoss) in \(Int(Date().timeIntervalSince(self.trainingStartTime))) secs"
+                self.modelStatus = "Training completed with loss: \(trainLoss.truncate(digits: 3)) in \(Int(Date().timeIntervalSince(self.trainingStartTime))) secs"
                 self.modelTrained = true
             }
 
